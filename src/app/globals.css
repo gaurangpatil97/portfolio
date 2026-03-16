@@ -17,7 +17,7 @@
 
 .dark {
   --background: #0B0E14;
-  --foreground: #F5F5F0;
+  --foreground: #E0E6ED;
   --accent: #00F2FF;
   --accent-glow: rgba(0, 242, 255, 0.4);
 }
@@ -28,28 +28,12 @@ html {
 
 body {
   background-color: var(--background);
+  background-image: radial-gradient(circle at 50% 50%, #161B22 0%, #0B0E14 100%);
+  background-attachment: fixed;
   color: var(--foreground);
   font-family: var(--font-sans);
   position: relative;
   overflow-x: hidden;
-}
-
-/* Subtle noise/grain texture overlay */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 9999;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  opacity: 0.03;
-}
-
-.dark body::before {
-  opacity: 0.05;
 }
 
 @keyframes scanline {
@@ -80,18 +64,63 @@ body::before {
   animation: marquee 20s linear infinite;
 }
 
-
 /* Glassmorphism helpers */
 .glass {
-  background: rgba(245, 245, 240, 0.4);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(0, 242, 255, 0.3);
+  position: relative;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-radius: 24px;
+  border: none;
+  box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.05);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding-top: 1px;
+  background: radial-gradient(ellipse at top center, rgba(0, 242, 255, 0.2) 0%, transparent 60%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.glass:hover {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.8), 0 0 60px rgba(0, 242, 255, 0.06), inset 0 1px 1px rgba(255, 255, 255, 0.05);
 }
 
 .dark .glass {
-  background: rgba(11, 14, 20, 0.6);
-  border: 1px solid rgba(0, 242, 255, 0.15);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes pulseShadow {
+  0% {
+    box-shadow: 0 0 8px rgba(0, 242, 255, 0.6);
+  }
+
+  100% {
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.6);
+  }
 }
 
 .glow-text {
@@ -102,7 +131,7 @@ body::before {
   box-shadow: 0 0 10px var(--accent-glow), inset 0 0 5px var(--accent-glow);
 }
 
-/* Hide scrollbar for smoother look but keep functionality */
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }

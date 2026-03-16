@@ -6,20 +6,17 @@ const clusters = [
     {
         name: "MACHINE LEARNING",
         skills: ["PyTorch", "TensorFlow", "Scikit-learn", "XGBoost", "FinBERT"],
-        position: "top-0 left-0 -translate-x-12 -translate-y-4 md:-translate-x-1/4 md:-translate-y-1/4",
-        lineStyle: "absolute w-[45%] h-[45%] border-t border-l border-dashed border-accent/40 top-[10%] left-[10%] rounded-tl-full pointer-events-none hidden md:block",
+        position: "left-[150px] top-[120px]",
     },
     {
         name: "COMPUTER VISION",
         skills: ["YOLOv8", "OpenCV", "TFLite"],
-        position: "top-0 right-0 translate-x-12 -translate-y-4 md:translate-x-1/4 md:-translate-y-1/4",
-        lineStyle: "absolute w-[45%] h-[45%] border-t border-r border-dashed border-accent/40 top-[10%] right-[10%] rounded-tr-full pointer-events-none hidden md:block",
+        position: "left-[650px] top-[120px]",
     },
     {
         name: "ENGINEERING & DATA",
         skills: ["Python", "FastAPI", "Docker", "MySQL", "MongoDB", "Pandas", "Power BI"],
-        position: "bottom-0 left-1/2 -translate-x-1/2 translate-y-12 md:translate-y-1/4",
-        lineStyle: "absolute w-0 h-[45%] border-l border-dashed border-accent/40 bottom-[10%] left-1/2 pointer-events-none hidden md:block",
+        position: "left-[400px] top-[400px]",
     },
 ];
 
@@ -29,41 +26,48 @@ export function OrbitalSkills() {
             {/* Desktop Orbital Layout */}
             <div className="relative w-full max-w-[800px] h-[500px] mx-auto hidden md:flex items-center justify-center mt-12 mb-20">
 
-                {/* Connection Lines (SVGs or borders) */}
-                {clusters.map((cluster, i) => (
-                    <div key={i} className={cluster.lineStyle} />
-                ))}
+                {/* Second radial glow behind the skills section center node */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] pointer-events-none z-0" style={{ background: "radial-gradient(circle, rgba(0,242,255,0.06) 0%, transparent 70%)" }} />
+
+                {/* SVG Connection Lines */}
+                <svg className="absolute inset-0 w-full h-full pointer-events-none z-10 hidden md:block" viewBox="0 0 800 500">
+                    <path d="M 400 250 Q 150 250 150 120" fill="none" stroke="rgba(0,242,255,0.25)" strokeWidth="1" strokeDasharray="4 4" />
+                    <path d="M 400 250 Q 650 250 650 120" fill="none" stroke="rgba(0,242,255,0.25)" strokeWidth="1" strokeDasharray="4 4" />
+                    <path d="M 400 250 L 400 400" fill="none" stroke="rgba(0,242,255,0.25)" strokeWidth="1" strokeDasharray="4 4" />
+                </svg>
 
                 {/* Central Node */}
                 <motion.div
-                    animate={{ scale: [1, 1.05, 1], boxShadow: ["0 0 10px rgba(0,242,255,0.4)", "0 0 30px rgba(0,242,255,0.8)", "0 0 10px rgba(0,242,255,0.4)"] }}
-                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                    className="relative z-20 w-40 h-40 rounded-full glass border border-accent flex flex-col items-center justify-center text-center shadow-[0_0_20px_var(--accent-glow)] bg-background/80"
+                    animate={{ scale: [1, 1.05, 1] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    className="relative z-20 w-[120px] h-[120px] rounded-full flex flex-col items-center justify-center text-center backdrop-blur-md"
+                    style={{
+                        background: "rgba(0,242,255,0.08)",
+                        boxShadow: "0 40px 80px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.05), 0 0 40px rgba(0,242,255,0.2)"
+                    }}
                 >
-                    <span className="font-mono font-bold text-lg text-accent glow-text">CORE</span>
-                    <span className="font-mono font-bold text-lg text-accent glow-text">STACK</span>
+                    <span className="font-mono font-bold text-sm text-accent glow-text">CORE</span>
+                    <span className="font-mono font-bold text-sm text-accent glow-text">STACK</span>
                 </motion.div>
 
                 {/* Satellite Clusters */}
                 {clusters.map((cluster) => (
                     <div
                         key={cluster.name}
-                        className={`absolute flex flex-col items-center z-30 ${cluster.position}`}
+                        className={`absolute flex flex-col items-center z-30 -translate-x-1/2 -translate-y-1/2 ${cluster.position}`}
                     >
-                        <div className="font-heading font-bold text-sm tracking-wider text-foreground mb-4 bg-background/80 px-4 py-1 rounded-full border border-foreground/10 backdrop-blur-sm">
+                        <div className="font-heading font-bold text-sm tracking-wider text-[#E0E6ED] mb-4 bg-background/80 px-4 py-1 rounded-[24px] border border-white/5 backdrop-blur-sm">
                             {cluster.name}
                         </div>
                         <div className="flex flex-wrap gap-2 justify-center max-w-[250px]">
                             {cluster.skills.map((skill, j) => (
-                                <motion.div
+                                <div
                                     key={skill}
-                                    animate={{ y: [0, -5, 0] }}
-                                    transition={{ duration: 3, repeat: Infinity, delay: j * 0.2, ease: "easeInOut" }}
-                                    whileHover={{ scale: 1.05, boxShadow: "0 0 15px rgba(0,242,255,0.6)", borderColor: "#00F2FF" }}
-                                    className="px-3 py-1.5 rounded-full glass text-xs font-mono whitespace-nowrap cursor-pointer border-accent/30 text-foreground/80 hover:text-accent transition-colors"
+                                    style={{ animation: `float 3s ease-in-out infinite ${j * 0.2}s` }}
+                                    className="px-3 py-1.5 rounded-[24px] glass text-xs font-mono whitespace-nowrap cursor-pointer text-[#94A3B8] hover:text-accent transition-all"
                                 >
                                     {skill}
-                                </motion.div>
+                                </div>
                             ))}
                         </div>
                     </div>
@@ -72,26 +76,34 @@ export function OrbitalSkills() {
 
             {/* Mobile Stacked Layout */}
             <div className="flex flex-col gap-8 md:hidden w-full max-w-sm mx-auto mt-8">
-                <div className="flex items-center justify-center mb-4">
+                <div className="flex items-center justify-center mb-4 relative py-8">
+                    {/* Second radial glow behind the skills section center node */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] pointer-events-none z-0" style={{ background: "radial-gradient(circle, rgba(0,242,255,0.1) 0%, transparent 70%)" }} />
                     <motion.div
-                        animate={{ boxShadow: ["0 0 10px rgba(0,242,255,0.4)", "0 0 20px rgba(0,242,255,0.6)", "0 0 10px rgba(0,242,255,0.4)"] }}
+                        animate={{ scale: [1, 1.05, 1] }}
                         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                        className="px-6 py-3 rounded-full border border-accent text-accent font-mono font-bold"
+                        className="relative z-10 w-[120px] h-[120px] rounded-full flex flex-col items-center justify-center text-center backdrop-blur-md"
+                        style={{
+                            background: "rgba(0,242,255,0.08)",
+                            boxShadow: "0 40px 80px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.05), 0 0 40px rgba(0,242,255,0.2)"
+                        }}
                     >
-                        CORE STACK
+                        <span className="font-mono font-bold text-sm text-accent glow-text">CORE</span>
+                        <span className="font-mono font-bold text-sm text-accent glow-text">STACK</span>
                     </motion.div>
                 </div>
 
                 {clusters.map((cluster) => (
-                    <div key={cluster.name} className="flex flex-col items-center text-center glass p-6 rounded-2xl border-accent/20">
-                        <div className="font-heading font-bold text-sm tracking-wider text-accent mb-4">
+                    <div key={cluster.name} className="flex flex-col items-center text-center glass p-6 rounded-[24px]">
+                        <div className="font-heading font-bold text-sm tracking-wider text-[#A5C0EE] mb-4">
                             {cluster.name}
                         </div>
                         <div className="flex flex-wrap gap-2 justify-center">
-                            {cluster.skills.map((skill) => (
+                            {cluster.skills.map((skill, j) => (
                                 <div
                                     key={skill}
-                                    className="px-3 py-1.5 rounded-full border border-accent/30 bg-background/50 text-xs font-mono text-foreground/80"
+                                    style={{ animation: `float 3s ease-in-out infinite ${j * 0.2}s` }}
+                                    className="px-3 py-1.5 rounded-[24px] glass text-xs font-mono text-[#94A3B8]"
                                 >
                                     {skill}
                                 </div>
