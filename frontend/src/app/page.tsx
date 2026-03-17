@@ -3,10 +3,12 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
-import { Github, Linkedin, Mail, Download, Moon, Sun, Monitor, Code, BrainCircuit, Activity } from "lucide-react";
+import { Github, Linkedin, Mail, Download, Moon, Sun, Monitor, Code, Code2, BrainCircuit, Activity, Zap } from "lucide-react";
 import { OrbitalSkills } from "@/components/OrbitalSkills";
 import { ProjectCard } from "@/components/ProjectCard";
 import { MagneticButton } from "@/components/MagneticButton";
+import { ToolsInventory } from "@/components/ToolsInventory";
+import Image from "next/image";
 
 const navItems = ["About Me", "Skills", "Best Works", "Contacts"];
 
@@ -62,9 +64,14 @@ export default function Home() {
   const [mounted, setMounted] = useState(false);
   const [activeSection, setActiveSection] = useState("Home");
   const [activeFilter, setActiveFilter] = useState("All");
+  const [scanned, setScanned] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    const timer = setTimeout(() => {
+      setScanned(true);
+    }, 4000);
+    return () => clearTimeout(timer);
   }, []);
 
   const filteredProjects = projects.filter(
@@ -113,7 +120,7 @@ export default function Home() {
         </div>
       </nav>
 
-      <main className="px-6 max-w-7xl mx-auto space-y-[240px]">
+      <main className="px-6 max-w-7xl mx-auto space-y-[120px]">
         {/* 1. Hero Section (Restructured for True Vertical Centering) */}
         <div className="relative min-h-[calc(100vh-8rem)] flex items-center justify-center">
           {/* Light Orbs */}
@@ -125,132 +132,131 @@ export default function Home() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="grid lg:grid-cols-[400px_1fr] gap-16 xl:gap-24 items-center w-full"
+            className="grid lg:grid-cols-[340px_1fr] gap-12 xl:gap-20 items-center w-full"
           >
             {/* Left Card: Profile Image & Identity */}
             <div className="glass overflow-hidden flex flex-col group relative">
-              {/* Scanline Effect */}
-              <div className="absolute inset-x-0 top-0 h-[3px] w-full z-20 pointer-events-none animate-scanline" style={{ background: "linear-gradient(90deg, transparent, #00F2FF, transparent)", opacity: 0.5 }} />
-              
-              <div className="relative aspect-[4/5] w-full overflow-hidden">
-                {/* Avatar Image Placeholder */}
-                <div className="w-full h-full bg-gradient-to-b from-[#161B22] to-transparent flex items-center justify-center relative">
-                   <BrainCircuit size={120} className="text-[#00F2FF]/20 group-hover:text-[#00F2FF]/40 transition-colors duration-500" />
-                   
-                   {/* Corner Brackets */}
-                   <div className="absolute top-4 left-4 w-[20px] h-[20px] border-t-2 border-l-2 border-[#00F2FF]/40" />
-                   <div className="absolute top-4 right-4 w-[20px] h-[20px] border-t-2 border-r-2 border-[#00F2FF]/40" />
-                   <div className="absolute bottom-4 left-4 w-[20px] h-[20px] border-b-2 border-l-2 border-[#00F2FF]/40" />
-                   <div className="absolute bottom-4 right-4 w-[20px] h-[20px] border-b-2 border-r-2 border-[#00F2FF]/40" />
+              <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#161B22]">
+                {/* Blurred Base */}
+                <Image 
+                  src="/new_yorkdp.png" 
+                  alt="Gaurang Patil" 
+                  fill 
+                  className="object-cover opacity-50 blur-[2px] z-0 transition-all duration-300"
+                  priority
+                />
+                
+                {/* Sharp Reveal Mask */}
+                <div className="absolute inset-0 z-[1] avatar-scan-reveal">
+                  <Image 
+                    src="/new_yorkdp.png" 
+                    alt="Gaurang Patil" 
+                    fill 
+                    className="object-cover opacity-90 z-[1]"
+                    priority
+                  />
+                </div>
+
+                {/* The Scanning Line */}
+                <div className="absolute left-0 right-0 h-[2px] bg-[#00F2FF] shadow-[0_0_10px_rgba(0,242,255,0.5)] z-[2] avatar-scan-line" />
+
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B0E14] via-transparent to-transparent pointer-events-none z-10" />
+
+                {/* HUD Elements */}
+                {/* Corner Brackets */}
+                <div className="absolute top-4 left-4 w-[20px] h-[20px] border-t-2 border-l-2 border-[#00F2FF]/60 z-20 pointer-events-none animate-pulse" />
+                <div className="absolute top-4 right-4 w-[20px] h-[20px] border-t-2 border-r-2 border-[#00F2FF]/60 z-20 pointer-events-none animate-pulse" />
+                <div className="absolute bottom-4 left-4 w-[20px] h-[20px] border-b-2 border-l-2 border-[#00F2FF]/60 z-20 pointer-events-none animate-pulse" />
+                <div className="absolute bottom-4 right-4 w-[20px] h-[20px] border-b-2 border-r-2 border-[#00F2FF]/60 z-20 pointer-events-none animate-pulse" />
+
+                {/* Status Tag: Systems Online */}
+                <div className="absolute top-[10%] -left-1 flex items-center gap-2 bg-[#000000]/60 backdrop-blur-md border border-green-500/30 px-3 py-1.5 rounded-r-md z-20 shadow-[0_0_10px_rgba(34,197,94,0.2)]">
+                  <Zap size={14} className="text-green-400 animate-pulse fill-green-400" />
+                  <span className="text-[9px] font-mono font-bold tracking-widest text-green-400 uppercase">Systems Online</span>
                 </div>
               </div>
 
-              <div className="p-8 mt-auto space-y-3">
-                <div className="flex items-center gap-2">
+              <div className="p-6 mt-auto space-y-3 z-20 relative">
+                <motion.div 
+                   initial={{ opacity: 0 }} 
+                   animate={{ opacity: scanned ? 1 : 0 }} 
+                   transition={{ duration: 0.5 }}
+                   className="flex items-center gap-2"
+                >
                   <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
                   <span className="text-[10px] font-mono font-bold tracking-widest text-green-400 uppercase">Available for Hire</span>
-                </div>
-                <h1 className="text-3xl font-heading font-bold text-[#E0E6ED]">Gaurang Patil</h1>
-                <div className="flex items-center gap-2 text-[#94A3B8] text-xs font-mono">
-                  <Activity size={12} className="text-accent" />
-                  <span>Mumbai, India / Remote</span>
-                </div>
+                </motion.div>
+                
+                <h1 className="text-3xl font-heading font-bold text-[#E0E6ED] h-9 flex items-center">
+                  <motion.span
+                    initial="hidden"
+                    animate="visible"
+                    variants={{
+                      hidden: { opacity: 1 },
+                      visible: { opacity: 1, transition: { staggerChildren: 0.05, delayChildren: 4 } }
+                    }}
+                  >
+                    {"Gaurang Patil".split("").map((char, index) => (
+                      <motion.span key={index} variants={{ hidden: { opacity: 0, display: "none" }, visible: { opacity: 1, display: "inline-block" } }}>
+                        {char === " " ? "\u00A0" : char}
+                      </motion.span>
+                    ))}
+                  </motion.span>
+                  {!scanned && <motion.span animate={{ opacity: [1, 0] }} transition={{ repeat: Infinity, duration: 0.6 }} className="inline-block w-3 h-7 bg-[#00F2FF] ml-1" />}
+                </h1>
+
+                <motion.div 
+                   initial={{ opacity: 0 }} 
+                   animate={{ opacity: scanned ? 1 : 0 }} 
+                   transition={{ duration: 0.5, delay: 0.5 }}
+                   className="flex items-center gap-2 text-[#94A3B8] text-xs font-mono"
+                >
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                  </span>
+                  <span>Mumbai, Maharashtra</span>
+                </motion.div>
               </div>
             </div>
 
             {/* Right Card: Bio, Stats, & Tech */}
-            <div className="glass p-10 flex flex-col justify-center gap-10 h-full min-h-[500px]">
-              <div className="space-y-8">
-                <div className="flex justify-end">
-                   <button className="flex items-center gap-2 text-[10px] font-mono font-bold text-[#94A3B8] hover:text-accent transition-colors border border-white/5 bg-white/5 px-4 py-2 rounded-full uppercase tracking-widest">
-                      <Download size={12} />
-                      Load Full Profile
-                   </button>
+            <div className="glass p-8 flex flex-col justify-center gap-8 h-full">
+              <div className="space-y-5">
+                <h1 className="text-4xl lg:text-5xl font-heading font-bold leading-tight soft-glow">
+                  Building AI Systems That Work in the <br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00F2FF] to-[#A5C0EE] soft-glow">Real World</span>
+                </h1>
+                <div className="font-mono text-[#E0E6ED]">
+                  ML Engineer · AI Engineer · Computer Vision · Data Science
                 </div>
-
-                <div className="space-y-4">
-                  <h2 className="text-4xl lg:text-5xl font-heading font-bold leading-tight">
-                    Building the <br />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00F2FF] to-[#A5C0EE]">Intelligent Real-World</span>
-                  </h2>
-                  <p className="text-[#94A3B8] text-lg leading-relaxed max-w-2xl font-sans">
-                    I am an <span className="text-[#E0E6ED] font-semibold">ML Engineer</span> and <span className="text-[#E0E6ED] font-semibold">AI Specialist</span> focused on turning research-level concepts into scalable, real-world systems. My work sits at the intersection of computer vision, predictive algorithms, and neural automation.
-                  </p>
-                </div>
+                <p className="text-lg leading-relaxed max-w-2xl font-sans">
+                  <span className="font-medium text-cyan-300">Final year CE student at K.J. Somaiya, Mumbai — Honors in Data Science.</span> <span className="text-slate-400">I build end-to-end AI systems that work in the real world. From computer vision pipelines to data infrastructure, I focus on turning research into things that actually ship. Looking for DS / MLE roles.</span>
+                </p>
               </div>
 
-              <div className="space-y-10">
-                {/* Stats Grid */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-8 border-t border-white/5">
+              <div className="space-y-8">
+                {/* Contact Links */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t border-white/5">
                   {[
-                    { label: "YEARS EXP", value: "3+" },
-                    { label: "PROJECTS", value: "15+" },
-                    { label: "TECH STACK", value: "24/7" },
-                    { label: "RATING", value: "5★" }
-                  ].map((stat, i) => (
-                    <div key={i} className="space-y-1">
-                      <div className="text-2xl font-heading font-bold text-[#E0E6ED]">{stat.value}</div>
-                      <div className="text-[10px] font-mono font-bold text-[#94A3B8] tracking-widest uppercase">{stat.label}</div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Footer Tech Tags */}
-                <div className="flex flex-wrap gap-4 pt-4">
-                   <div className="flex items-center gap-2 bg-white/5 border border-white/5 px-4 py-2 rounded-full">
-                      <span className="w-3 h-2 rounded bg-blue-500" />
-                      <span className="text-[10px] font-mono font-bold text-[#94A3B8] uppercase">Python (Expert)</span>
-                   </div>
-                   <div className="flex items-center gap-2 bg-white/5 border border-white/5 px-4 py-2 rounded-full">
-                      <span className="w-3 h-2 rounded bg-cyan-500" />
-                      <span className="text-[10px] font-mono font-bold text-[#94A3B8] uppercase">PyTorch (Native)</span>
-                   </div>
-                   <div className="flex items-center gap-2 bg-white/5 border border-white/5 px-4 py-2 rounded-full">
-                      <span className="w-3 h-2 rounded bg-indigo-500" />
-                      <span className="text-[10px] font-mono font-bold text-[#94A3B8] uppercase">TensorFlow</span>
-                   </div>
+                    { icon: Github, label: "GITHUB", href: "https://github.com/gaurangpatil97" },
+                    { icon: Linkedin, label: "LINKEDIN", href: "https://www.linkedin.com/in/gaurangpatil9/" },
+                    { icon: Code2, label: "KAGGLE", href: "https://www.kaggle.com/patilgaurang0907" },
+                    { icon: Mail, label: "EMAIL", href: "mailto:gaurangpatil9@gmail.com" }
+                  ].map((contact, i) => {
+                    const Icon = contact.icon;
+                    return (
+                      <a key={i} href={contact.href} className="glass flex flex-col items-center justify-center gap-3 p-4 rounded-2xl hover:border-accent/40 transition-colors group">
+                        <Icon size={24} className="text-[#94A3B8] group-hover:text-[#00F2FF] transition-colors" />
+                        <span className="text-[10px] font-mono font-bold tracking-widest text-[#E0E6ED] uppercase">{contact.label}</span>
+                      </a>
+                    );
+                  })}
                 </div>
               </div>
             </div>
           </motion.section>
         </div>
-
-        {/* 2. About Section */}
-        <motion.section
-          id="About"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-          className="grid lg:grid-cols-2 gap-12 items-center"
-        >
-          <div className="space-y-4">
-            <div className="inline-block font-mono text-[0.7rem] uppercase tracking-[0.2em] text-[rgba(0,242,255,0.7)] border-l border-accent pl-2 mb-2">
-              [01] SYSTEM_PROFILE
-            </div>
-            <h2 className="text-[48px] font-heading font-[700] text-transparent bg-clip-text bg-gradient-to-b from-white to-[#A5C0EE] pb-2">
-              About Me
-            </h2>
-            <p className="font-sans text-[#94A3B8] leading-relaxed text-lg">
-              ML Engineer & Data Strategist. Building high-performance AI systems — from computer vision pipelines to intelligent data infrastructure. Focused on turning research-level concepts into scalable, real-world applications.
-            </p>
-          </div>
-
-          <div className="flex flex-col gap-6 relative justify-center w-full max-w-sm mx-auto">
-            <motion.div whileHover={{ y: -5 }} className="glass p-6 rounded-xl border border-accent/20 hover:border-accent hover:shadow-[0_0_15px_var(--accent-glow)] flex items-center justify-between z-10 transition-colors">
-              <span className="font-heading font-bold text-4xl text-foreground">3</span>
-              <span className="font-mono text-sm font-bold text-accent tracking-wider uppercase">Projects</span>
-            </motion.div>
-            <motion.div whileHover={{ y: -5 }} className="glass p-6 rounded-xl border border-accent/20 hover:border-accent hover:shadow-[0_0_15px_var(--accent-glow)] flex items-center justify-between z-10 transition-colors">
-              <span className="font-heading font-bold text-4xl text-foreground">2</span>
-              <span className="font-mono text-sm font-bold text-accent tracking-wider uppercase">Internships</span>
-            </motion.div>
-            <motion.div whileHover={{ y: -5 }} className="glass p-6 rounded-xl border border-accent/20 hover:border-accent hover:shadow-[0_0_15px_var(--accent-glow)] flex items-center justify-between z-10 transition-colors">
-              <span className="font-heading font-bold text-4xl text-foreground">1</span>
-              <span className="font-mono text-sm font-bold text-accent tracking-wider uppercase text-right leading-tight max-w-[150px]">Research Paper <br /> <span className="text-[10px] text-foreground/50">(in progress)</span></span>
-            </motion.div>
-          </div>
-        </motion.section>
 
         {/* 3. Skills */}
         <motion.section
@@ -259,9 +265,9 @@ export default function Home() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="py-10 flex flex-col items-center"
+          className="py-[40px] flex flex-col items-center"
         >
-          <div className="text-center mb-16 space-y-4 relative">
+          <div className="text-center mb-6 space-y-4 relative">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] pointer-events-none z-[-1]" style={{ background: "radial-gradient(circle, rgba(0,242,255,0.1) 0%, transparent 70%)" }} />
             <div className="inline-block font-mono text-[0.7rem] uppercase tracking-[0.2em] text-[rgba(0,242,255,0.7)] border-l border-accent pl-2 mb-2">
               [02] TECHNICAL_ARSENAL
@@ -271,10 +277,12 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="w-full flex justify-center overflow-visible">
+          <div className="w-full overflow-visible">
             <OrbitalSkills />
           </div>
         </motion.section>
+
+        <ToolsInventory />
 
         {/* 4. Projects */}
         <div className="relative">

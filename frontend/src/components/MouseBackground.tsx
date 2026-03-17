@@ -19,7 +19,7 @@ export function MouseBackground() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [mouseX, mouseY]);
 
-  const background = useMotionTemplate`radial-gradient(800px circle at ${springX}px ${springY}px, rgba(0, 242, 255, 0.26), transparent 80%)`;
+  const background = useMotionTemplate`radial-gradient(480px circle at ${springX}px ${springY}px, rgba(0, 242, 255, 0.26), transparent 80%)`;
 
   return (
     <>
