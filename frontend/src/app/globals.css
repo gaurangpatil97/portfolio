@@ -262,8 +262,8 @@ body {
 
 /* Orbiting white ball around center node */
 @keyframes orbit {
-  from { transform: rotate(0deg) translateX(72px) rotate(0deg); }
-  to   { transform: rotate(360deg) translateX(72px) rotate(-360deg); }
+  from { transform: rotate(0deg) translateX(108px) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(108px) rotate(-360deg); }
 }
 
 .orbit-ball {

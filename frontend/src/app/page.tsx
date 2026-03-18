@@ -91,6 +91,7 @@ export default function Home() {
             {navItems.map((item) => (
               <button
                 key={item}
+                suppressHydrationWarning
                 onClick={() => {
                   const id = item === "About Me" ? "About" : item === "Best Works" ? "Projects" : item === "Contacts" ? "Experience" : item;
                   const element = document.getElementById(id);
@@ -265,13 +266,10 @@ export default function Home() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="py-[40px] flex flex-col items-center"
+          className="pt-[40px] pb-[20px] flex flex-col items-center"
         >
           <div className="text-center mb-6 space-y-4 relative">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] pointer-events-none z-[-1]" style={{ background: "radial-gradient(circle, rgba(0,242,255,0.1) 0%, transparent 70%)" }} />
-            <div className="inline-block font-mono text-[0.7rem] uppercase tracking-[0.2em] text-[rgba(0,242,255,0.7)] border-l border-accent pl-2 mb-2">
-              [02] TECHNICAL_ARSENAL
-            </div>
             <h2 className="text-[48px] font-heading font-[700] text-transparent bg-clip-text bg-gradient-to-b from-white to-[#A5C0EE] pb-2">
               Core Capabilities
             </h2>
@@ -308,6 +306,7 @@ export default function Home() {
               {filters.map(filter => (
                 <button
                   key={filter}
+                  suppressHydrationWarning
                   onClick={() => setActiveFilter(filter)}
                   className={`px-4 py-1.5 rounded-md font-mono text-sm transition-all ${activeFilter === filter ? "bg-accent/20 text-accent border border-accent/40" : "text-foreground/60 hover:text-foreground"
                     }`}
