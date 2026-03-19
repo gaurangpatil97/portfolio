@@ -59,6 +59,40 @@ const experiences = [
   },
 ];
 
+interface FreelanceProject {
+  name: string;
+  description: string;
+  tech: string[];
+  link: string;
+}
+
+const freelanceProjects: FreelanceProject[] = [
+  {
+    name: "Grabtek BioSciences",
+    description: "Corporate website for a Mumbai-based biosciences company",
+    tech: ["React", "Tailwind CSS", "Framer Motion"],
+    link: "#"
+  },
+  {
+    name: "Biotronics",
+    description: "Business website for an electronics and automation firm",
+    tech: ["Next.js", "Tailwind CSS", "Lucide React"],
+    link: "#"
+  },
+  {
+    name: "Hands On Skill Lab",
+    description: "Training institute website with course listings and enrollment",
+    tech: ["React", "Supabase", "Tailwind CSS"],
+    link: "#"
+  },
+  {
+    name: "Rajashri World",
+    description: "Business website for a client in the retail sector",
+    tech: ["Next.js", "Framer Motion", "Tailwind CSS"],
+    link: "#"
+  }
+];
+
 export default function Home() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -335,6 +369,67 @@ export default function Home() {
           </motion.div>
         </motion.section>
       </div>
+
+        {/* 4.5 Freelance Work */}
+        <motion.section
+          id="Freelance"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="space-y-12"
+        >
+          <div className="space-y-4">
+            <div className="inline-block font-mono text-[0.7rem] uppercase tracking-[0.2em] text-[rgba(0,242,255,0.7)] border-l border-accent pl-2 mb-2">
+              [03.5] CLIENT_WORK
+            </div>
+            <div>
+              <h2 className="text-[48px] font-heading font-[700] text-transparent bg-clip-text bg-gradient-to-b from-white to-[#A5C0EE] pb-1">
+                Freelance Work
+              </h2>
+              <p className="font-sans text-[#94A3B8] text-lg">
+                Real client projects — designed, built, and shipped.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            {freelanceProjects.map((project: FreelanceProject, i: number) => (
+              <div key={i} className="glass p-6 rounded-xl flex flex-col hover:border-accent/40 transition-colors group">
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="font-heading font-bold text-xl group-hover:text-accent transition-colors">
+                    {project.name}
+                  </h3>
+                  <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[rgba(0,255,100,0.1)] border border-[rgba(0,255,100,0.3)] text-[#00ff64] font-mono text-[10px] font-bold tracking-widest">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#00ff64] animate-pulse shadow-[0_0_8px_#00ff64]" />
+                    LIVE
+                  </div>
+                </div>
+                
+                <p className="text-sm text-[#94A3B8] font-sans mb-6">
+                  {project.description}
+                </p>
+
+                <div className="flex flex-wrap gap-2 mb-8">
+                  {project.tech.map((t: string) => (
+                    <span key={t} className="font-mono text-[11px] px-[10px] py-[4px] rounded-[4px] bg-[rgba(0,242,255,0.06)] border border-[rgba(0,242,255,0.2)] text-foreground/90">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="mt-auto">
+                  <a
+                    href={project.link}
+                    className="inline-flex items-center gap-2 font-mono text-xs font-bold border border-foreground/20 text-[#94A3B8] hover:border-[#00F2FF] hover:text-[#00F2FF] hover:shadow-[0_0_10px_rgba(0,242,255,0.2)] px-4 py-2 rounded transition-all bg-background/50"
+                  >
+                    Visit Site <span className="text-sm">→</span>
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.section>
 
         {/* 5. Experience */}
         <motion.section
