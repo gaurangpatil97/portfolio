@@ -55,8 +55,8 @@ export function ToolsInventory() {
   });
 
   return (
-    <section className="w-full relative overflow-hidden flex flex-col items-center pb-8 pt-0">
-      <div className="flex items-center gap-2 mb-4 border border-white/5 bg-black/20 px-4 py-1.5 rounded-full backdrop-blur-md z-10 transition-colors hover:border-accent/40">
+    <section className="w-full relative overflow-hidden flex flex-col items-center py-[100px]">
+      <div className="flex items-center gap-2 mb-4 border border-white/5 bg-black/20 px-4 py-1.5 rounded-full backdrop-blur-md z-10 transition-colors hover:border-accent/40 cursor-hover">
         <Wrench size={12} className="text-[#F05032]" />
         <span className="font-mono text-[10px] sm:text-xs font-bold tracking-widest text-[#E0E6ED] uppercase">
           Tools Inventory
@@ -80,7 +80,7 @@ export function ToolsInventory() {
               <motion.div
                 key={i}
                 whileHover={{ scale: 1.1 }}
-                className="group relative flex items-center justify-center flex-shrink-0 rounded-xl border border-white/10 bg-white/5 backdrop-blur-[12px] transition-all duration-300 cursor-pointer"
+                className="group relative flex items-center justify-center flex-shrink-0 rounded-xl border border-white/10 bg-white/5 backdrop-blur-[12px] transition-all duration-300 cursor-pointer cursor-hover"
                 style={{ width: 44, height: 44 }}
               >
                 {/* 3D Reflection Effect */}

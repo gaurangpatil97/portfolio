@@ -10,9 +10,11 @@ interface ProjectCardProps {
     metric: string;
     description: string;
     tags: string[];
+    isDimmed?: boolean;
+    isHighlighted?: boolean;
 }
 
-export function ProjectCard({ title, category, metric, description, tags }: ProjectCardProps) {
+export function ProjectCard({ title, category, metric, description, tags, isDimmed, isHighlighted }: ProjectCardProps) {
     const cardRef = useRef<HTMLDivElement>(null);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
@@ -30,8 +32,13 @@ export function ProjectCard({ title, category, metric, description, tags }: Proj
         <motion.div
             ref={cardRef}
             onMouseMove={handleMouseMove}
-            whileHover={{ y: -5 }}
-            className="relative w-full h-full rounded-2xl glass p-[28px] overflow-hidden flex flex-col min-w-[320px] cursor-pointer group"
+            animate={{
+                scale: isHighlighted ? 1.02 : 1,
+                filter: isDimmed ? "blur(1.5px)" : "blur(0px)",
+                opacity: isDimmed ? 0.5 : 1,
+            }}
+            transition={{ duration: 0.3 }}
+            className="relative w-full h-full rounded-2xl glass p-[28px] overflow-hidden flex flex-col min-w-[320px] cursor-pointer group cursor-hover"
         >
             {/* Glow Effect */}
             <div

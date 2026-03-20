@@ -8,6 +8,7 @@ import { OrbitalSkills } from "@/components/OrbitalSkills";
 import { ProjectCard } from "@/components/ProjectCard";
 import { MagneticButton } from "@/components/MagneticButton";
 import { ToolsInventory } from "@/components/ToolsInventory";
+import { CustomCursor } from "@/components/CustomCursor";
 import Image from "next/image";
 
 const navItems = ["About Me", "Skills", "Best Works", "Contacts"];
@@ -64,32 +65,37 @@ interface FreelanceProject {
   description: string;
   tech: string[];
   link: string;
+  image: string;
 }
 
 const freelanceProjects: FreelanceProject[] = [
   {
     name: "Grabtek BioSciences",
     description: "Corporate website for a Mumbai-based biosciences company",
-    tech: ["React", "Tailwind CSS", "Framer Motion"],
-    link: "#"
+    tech: ["WordPress", "Elementor", "PHP"],
+    link: "#",
+    image: "url('/grabtekbiosciences.png')"
   },
   {
     name: "Biotronics",
     description: "Business website for an electronics and automation firm",
-    tech: ["Next.js", "Tailwind CSS", "Lucide React"],
-    link: "#"
+    tech: ["Next.js", "Tailwind CSS", "Framer Motion"],
+    link: "#",
+    image: "url('/Biotronics.png')"
   },
   {
     name: "Hands On Skill Lab",
     description: "Training institute website with course listings and enrollment",
-    tech: ["React", "Supabase", "Tailwind CSS"],
-    link: "#"
+    tech: ["Next.js", "Supabase", "Tailwind CSS"],
+    link: "#",
+    image: "url('/handsonskilllab.png')"
   },
   {
     name: "Rajashri World",
     description: "Business website for a client in the retail sector",
     tech: ["Next.js", "Framer Motion", "Tailwind CSS"],
-    link: "#"
+    link: "#",
+    image: "url('/Rajashriworld.png')"
   }
 ];
 
@@ -99,6 +105,8 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState("Home");
   const [activeFilter, setActiveFilter] = useState("All");
   const [scanned, setScanned] = useState(false);
+  const [hoveredFeatured, setHoveredFeatured] = useState<string | null>(null);
+  const [hoveredFreelance, setHoveredFreelance] = useState<string | null>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -114,6 +122,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
+      <CustomCursor />
       {/* Navbar */}
       <nav className="fixed top-0 w-full z-50 glass" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -132,7 +141,7 @@ export default function Home() {
                   element?.scrollIntoView({ behavior: 'smooth' });
                   setActiveSection(item);
                 }}
-                className={`text-xs uppercase tracking-widest font-mono transition-colors relative ${activeSection === item ? "text-accent" : "text-foreground/70 hover:text-foreground"
+                className={`text-xs uppercase tracking-widest font-mono transition-colors relative cursor-hover ${activeSection === item ? "text-accent" : "text-foreground/70 hover:text-foreground"
                   }`}
               >
                 {item}
@@ -148,16 +157,16 @@ export default function Home() {
 
           <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="p-2 rounded-full glass hover:border-accent transition-colors"
+            className="p-2 rounded-full glass hover:border-accent transition-colors cursor-hover"
           >
             {mounted ? (theme === "dark" ? <Sun size={18} /> : <Moon size={18} />) : <span className="w-[18px] h-[18px] block" />}
           </button>
         </div>
       </nav>
 
-      <main className="px-6 max-w-7xl mx-auto space-y-[120px]">
+      <main className="px-6 max-w-7xl mx-auto flex flex-col">
         {/* 1. Hero Section (Restructured for True Vertical Centering) */}
-        <div className="relative min-h-[calc(100vh-8rem)] flex items-center justify-center">
+        <div className="relative min-h-screen flex items-center justify-center py-[100px]">
           {/* Light Orbs */}
           <div className="absolute top-[10%] left-[20%] w-[300px] h-[300px] bg-[#00F2FF] rounded-full blur-[150px] opacity-5 pointer-events-none z-[-1]" />
           <div className="absolute top-[30%] right-[15%] w-[300px] h-[300px] bg-[#000080] rounded-full blur-[150px] opacity-10 pointer-events-none z-[-1]" />
@@ -281,7 +290,7 @@ export default function Home() {
                   ].map((contact, i) => {
                     const Icon = contact.icon;
                     return (
-                      <a key={i} href={contact.href} className="glass flex flex-col items-center justify-center gap-3 p-4 rounded-2xl hover:border-accent/40 transition-colors group">
+                      <a key={i} href={contact.href} className="glass flex flex-col items-center justify-center gap-3 p-4 rounded-2xl hover:border-accent/40 transition-colors group cursor-hover">
                         <Icon size={24} className="text-[#94A3B8] group-hover:text-[#00F2FF] transition-colors" />
                         <span className="text-[10px] font-mono font-bold tracking-widest text-[#E0E6ED] uppercase">{contact.label}</span>
                       </a>
@@ -300,7 +309,7 @@ export default function Home() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="pt-[40px] pb-[20px] flex flex-col items-center"
+          className="py-[100px] flex flex-col items-center"
         >
           <div className="text-center mb-6 space-y-4 relative">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] pointer-events-none z-[-1]" style={{ background: "radial-gradient(circle, rgba(0,242,255,0.1) 0%, transparent 70%)" }} />
@@ -326,7 +335,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="space-y-12"
+            className="space-y-12 py-[100px]"
           >
             <div className="flex flex-col sm:flex-row justify-between items-center mb-8">
               <div className="mb-6 sm:mb-0 space-y-4">
@@ -342,7 +351,7 @@ export default function Home() {
                   key={filter}
                   suppressHydrationWarning
                   onClick={() => setActiveFilter(filter)}
-                  className={`px-4 py-1.5 rounded-md font-mono text-sm transition-all ${activeFilter === filter ? "bg-accent/20 text-accent border border-accent/40" : "text-foreground/60 hover:text-foreground"
+                  className={`px-4 py-1.5 rounded-md font-mono text-sm transition-all cursor-hover ${activeFilter === filter ? "bg-accent/20 text-accent border border-accent/40" : "text-foreground/60 hover:text-foreground"
                     }`}
                 >
                   {filter}
@@ -361,8 +370,14 @@ export default function Home() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.3 }}
+                  onMouseEnter={() => setHoveredFeatured(project.title)}
+                  onMouseLeave={() => setHoveredFeatured(null)}
                 >
-                  <ProjectCard {...project} />
+                  <ProjectCard 
+                    {...project} 
+                    isDimmed={hoveredFeatured !== null && hoveredFeatured !== project.title}
+                    isHighlighted={hoveredFeatured === project.title}
+                  />
                 </motion.div>
               ))}
             </AnimatePresence>
@@ -377,7 +392,7 @@ export default function Home() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="space-y-12"
+          className="space-y-12 py-[100px]"
         >
           <div className="space-y-4">
             <div className="inline-block font-mono text-[0.7rem] uppercase tracking-[0.2em] text-[rgba(0,242,255,0.7)] border-l border-accent pl-2 mb-2">
@@ -395,36 +410,84 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             {freelanceProjects.map((project: FreelanceProject, i: number) => (
-              <div key={i} className="glass p-6 rounded-xl flex flex-col hover:border-accent/40 transition-colors group">
-                <div className="flex justify-between items-center mb-4">
-                  <h3 className="font-heading font-bold text-xl group-hover:text-accent transition-colors">
-                    {project.name}
-                  </h3>
-                  <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[rgba(0,255,100,0.1)] border border-[rgba(0,255,100,0.3)] text-[#00ff64] font-mono text-[10px] font-bold tracking-widest">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#00ff64] animate-pulse shadow-[0_0_8px_#00ff64]" />
-                    LIVE
-                  </div>
-                </div>
+              <div 
+                key={i} 
+                className="relative h-[320px] rounded-2xl overflow-hidden glass group cursor-pointer border border-transparent transition-all duration-[350ms] ease-in-out hover:border-accent/40 hover:shadow-[0_0_20px_rgba(0,242,255,0.15)] cursor-hover"
+                onMouseEnter={() => setHoveredFreelance(project.name)}
+                onMouseLeave={() => setHoveredFreelance(null)}
+                style={{
+                   opacity: hoveredFreelance !== null && hoveredFreelance !== project.name ? 0.5 : 1,
+                   filter: hoveredFreelance !== null && hoveredFreelance !== project.name ? "blur(1.5px)" : "blur(0px)",
+                   scale: hoveredFreelance === project.name ? 1.02 : 1,
+                   transition: "all 0.3s ease"
+                }}
+              >
+                {/* Background Image */}
+                <div 
+                  className="absolute inset-0 bg-cover bg-top transition-transform duration-400 ease-in-out group-hover:scale-105"
+                  style={{ backgroundImage: project.image }}
+                />
                 
-                <p className="text-sm text-[#94A3B8] font-sans mb-6">
-                  {project.description}
-                </p>
+                {/* Initial Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/60 transition-all duration-[350ms] group-hover:from-black/30 group-hover:to-black/85" />
 
-                <div className="flex flex-wrap gap-2 mb-8">
-                  {project.tech.map((t: string) => (
-                    <span key={t} className="font-mono text-[11px] px-[10px] py-[4px] rounded-[4px] bg-[rgba(0,242,255,0.06)] border border-[rgba(0,242,255,0.2)] text-foreground/90">
-                      {t}
-                    </span>
-                  ))}
-                </div>
+                {/* Sliding Dark Panel (Bottom 55%) */}
+                <div className="absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-t from-[rgba(11,14,20,0.98)] to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-[350ms] ease-in-out" />
 
-                <div className="mt-auto">
-                  <a
-                    href={project.link}
-                    className="inline-flex items-center gap-2 font-mono text-xs font-bold border border-foreground/20 text-[#94A3B8] hover:border-[#00F2FF] hover:text-[#00F2FF] hover:shadow-[0_0_10px_rgba(0,242,255,0.2)] px-4 py-2 rounded transition-all bg-background/50"
-                  >
-                    Visit Site <span className="text-sm">→</span>
-                  </a>
+                {/* Content Container */}
+                <div className="absolute inset-0 p-5 flex flex-col justify-end">
+                  {/* Name & Badge - Moves up on hover */}
+                  <div className="flex justify-between items-center transition-transform duration-[350ms] ease-in-out group-hover:-translate-y-[150px]">
+                      <h3 className="font-heading font-bold text-[18px] text-white group-hover:text-accent transition-colors">
+                        {project.name}
+                      </h3>
+                      <span style={{
+                        fontFamily: 'JetBrains Mono, monospace',
+                        fontSize: '10px',
+                        letterSpacing: '0.12em',
+                        color: '#00ff64',
+                        background: 'rgba(0,255,100,0.08)',
+                        border: '1px solid rgba(0,255,100,0.3)',
+                        padding: '4px 10px',
+                        borderRadius: '4px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px'
+                      }}>
+                        <span style={{
+                          width: '6px', height: '6px',
+                          background: '#00ff64',
+                          borderRadius: '50%',
+                          boxShadow: '0 0 6px #00ff64',
+                          animation: 'pulse 2s infinite'
+                        }}></span>
+                        STATUS: ONLINE
+                      </span>
+                    </div>
+                  
+                  {/* Hidden Elements (Fade in on hover) */}
+                  <div className="space-y-4 absolute inset-x-5 bottom-5">
+                    <p className="text-sm text-[#94A3B8] font-sans opacity-0 translate-y-5 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[350ms] ease-in-out">
+                      {project.description}
+                    </p>
+
+                    <div className="flex flex-wrap gap-2 opacity-0 translate-y-5 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[350ms] ease-in-out delay-100">
+                      {project.tech.map((t: string) => (
+                        <span key={t} className="font-mono text-[11px] px-[10px] py-[4px] rounded-[4px] bg-[rgba(0,242,255,0.06)] border border-[rgba(0,242,255,0.2)] text-foreground/90">
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="pt-2 opacity-0 translate-y-5 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[350ms] ease-in-out delay-[150ms]">
+                      <a
+                        href={project.link}
+                        className="inline-flex items-center gap-2 font-mono text-xs font-bold border border-foreground/20 text-[#94A3B8] hover:border-[#00F2FF] hover:text-[#00F2FF] hover:shadow-[0_0_10px_rgba(0,242,255,0.2)] px-4 py-2 rounded transition-all bg-background/50"
+                      >
+                        Visit Site <span className="text-sm">→</span>
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}
@@ -438,7 +501,7 @@ export default function Home() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="pb-20"
+          className="py-[100px]"
         >
             <div className="inline-block font-mono text-[0.7rem] uppercase tracking-[0.2em] text-[rgba(0,242,255,0.7)] border-l border-accent pl-2 mb-6">
               [04] OPERATIONAL_LOGS
@@ -469,7 +532,7 @@ export default function Home() {
       </main>
 
       {/* 6. Marquee Banner */}
-      <div className="w-full glass py-3 overflow-hidden relative" style={{ background: "linear-gradient(90deg, rgba(0,242,255,0.05), rgba(0,242,255,0.02), rgba(0,242,255,0.05))", borderTop: "1px solid rgba(0,242,255,0.15)", borderBottom: "1px solid rgba(0,242,255,0.15)" }}>
+      <div className="w-full glass py-[100px] overflow-hidden relative" style={{ background: "linear-gradient(90deg, rgba(0,242,255,0.05), rgba(0,242,255,0.02), rgba(0,242,255,0.05))", borderTop: "1px solid rgba(0,242,255,0.15)", borderBottom: "1px solid rgba(0,242,255,0.15)" }}>
         <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
         <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
         <div className="flex animate-marquee whitespace-nowrap items-center">
