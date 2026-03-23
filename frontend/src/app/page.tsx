@@ -422,6 +422,31 @@ export default function Home() {
                    transition: "all 0.3s ease"
                 }}
               >
+                {/* STATUS: ONLINE Badge (Top-Right) */}
+                <div className="absolute top-5 right-5 z-20">
+                  <span style={{
+                    fontFamily: 'JetBrains Mono, monospace',
+                    fontSize: '10px',
+                    letterSpacing: '0.12em',
+                    color: '#00ff64',
+                    background: 'rgba(0,255,100,0.08)',
+                    border: '1px solid rgba(0,255,100,0.3)',
+                    padding: '4px 10px',
+                    borderRadius: '4px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px'
+                  }}>
+                    <span style={{
+                      width: '6px', height: '6px',
+                      background: '#00ff64',
+                      borderRadius: '50%',
+                      boxShadow: '0 0 6px #00ff64',
+                      animation: 'pulse 2s infinite'
+                    }}></span>
+                    STATUS: ONLINE
+                  </span>
+                </div>
                 {/* Background Image */}
                 <div 
                   className="absolute inset-0 bg-cover bg-top transition-transform duration-400 ease-in-out group-hover:scale-105"
@@ -432,10 +457,13 @@ export default function Home() {
                 <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/60 transition-all duration-[350ms] group-hover:from-black/30 group-hover:to-black/85" />
 
                 {/* Sliding Dark Panel (Bottom 55%) */}
-                <div className="absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-t from-[rgba(11,14,20,0.98)] to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-[350ms] ease-in-out" />
+                <div className="absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-t from-[rgba(11,14,20,0.98)] to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-[350ms] ease-in-out z-10" />
+
+                {/* Permanent Bottom Gradient for Readability */}
+                <div className="absolute bottom-0 left-0 right-0 h-[120px] bg-gradient-to-t from-black/80 to-transparent pointer-events-none z-[5]" />
 
                 {/* Content Container */}
-                <div className="absolute inset-0 p-5 flex flex-col justify-end">
+                <div className="absolute inset-0 p-5 flex flex-col justify-end z-[20]">
                   {/* Name & Badge - Moves up on hover */}
                   <div className="flex justify-between items-center transition-transform duration-[350ms] ease-in-out group-hover:-translate-y-[150px]">
                       <h3 className="font-heading font-bold text-[18px] text-white group-hover:text-accent transition-colors">
