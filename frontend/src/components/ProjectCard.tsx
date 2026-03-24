@@ -10,11 +10,13 @@ interface ProjectCardProps {
     metric: string;
     description: string;
     tags: string[];
+    github?: string;
+    demo?: string;
     isDimmed?: boolean;
     isHighlighted?: boolean;
 }
 
-export function ProjectCard({ title, category, metric, description, tags, isDimmed, isHighlighted }: ProjectCardProps) {
+export function ProjectCard({ title, category, metric, description, tags, github, demo, isDimmed, isHighlighted }: ProjectCardProps) {
     const cardRef = useRef<HTMLDivElement>(null);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
@@ -75,20 +77,24 @@ export function ProjectCard({ title, category, metric, description, tags, isDimm
 
                 {/* Actions */}
                 <div className="flex gap-3 mt-auto pt-6">
-                    <button
-                        suppressHydrationWarning
-                        className="flex items-center gap-1.5 font-mono text-xs font-bold border border-foreground/20 text-[#94A3B8] hover:border-[#00F2FF] hover:text-[#00F2FF] hover:shadow-[0_0_10px_rgba(0,242,255,0.2)] px-4 py-2 rounded transition-all bg-background/50"
+                    <a
+                        href={github || "#"}
+                        target={github ? "_blank" : undefined}
+                        rel={github ? "noopener noreferrer" : undefined}
+                        className="flex items-center gap-1.5 font-mono text-xs font-bold border border-foreground/20 text-[#94A3B8] hover:border-[#00F2FF] hover:text-[#00F2FF] hover:shadow-[0_0_10px_rgba(0,242,255,0.2)] px-4 py-2 rounded transition-all bg-background/50 cursor-hover"
                     >
                         <Github size={14} />
                         GitHub
-                    </button>
-                    <button
-                        suppressHydrationWarning
-                        className="flex items-center gap-1.5 font-mono text-xs font-bold border border-foreground/20 text-[#94A3B8] hover:border-[#00F2FF] hover:text-[#00F2FF] hover:shadow-[0_0_10px_rgba(0,242,255,0.2)] px-4 py-2 rounded transition-all bg-background/50"
+                    </a>
+                    <a
+                        href={demo || "#"}
+                        target={demo ? "_blank" : undefined}
+                        rel={demo ? "noopener noreferrer" : undefined}
+                        className="flex items-center gap-1.5 font-mono text-xs font-bold border border-foreground/20 text-[#94A3B8] hover:border-[#00F2FF] hover:text-[#00F2FF] hover:shadow-[0_0_10px_rgba(0,242,255,0.2)] px-4 py-2 rounded transition-all bg-background/50 cursor-hover"
                     >
                         <ExternalLink size={14} />
                         Demo
-                    </button>
+                    </a>
                 </div>
             </div>
         </motion.div>

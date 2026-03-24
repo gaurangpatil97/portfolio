@@ -22,6 +22,7 @@ const projects = [
     metric: "89% mAP",
     description: "Real-time assistive AI system for the visually impaired. YOLOv8 object detection with spatial audio feedback, IMU-based step tracking, and voice commands. Mobile app via Expo, backend inference under 300ms.",
     tags: ["Python", "YOLOv8", "TFLite", "React Native", "FastAPI"],
+    github: "https://github.com/gaurangpatil97/divyadrishti2",
   },
   {
     title: "AI Traffic Enforcement System",
