@@ -26,6 +26,10 @@ html {
   scroll-behavior: smooth;
 }
 
+body, body * {
+  transition: background-color 0.5s ease, color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
 body {
   background-color: var(--background);
   background-image: radial-gradient(circle at 50% 50%, #161B22 0%, #0B0E14 100%);
@@ -34,35 +38,34 @@ body {
   font-family: var(--font-sans);
   position: relative;
   overflow-x: hidden;
-  transition: background-color 0.4s ease, color 0.3s ease;
 }
 
-/* Focus Mode Overrides */
-.focus-mode body {
+/* Signal Mode Overrides */
+.signal-mode body {
   background-color: #060810 !important;
   background-image: none !important;
 }
 
-.focus-mode .glass {
-  background: rgba(255, 255, 255, 0.06) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+.signal-mode .glass {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
   box-shadow: none !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
-.focus-mode .glass::before {
+.signal-mode .glass::before {
   display: none !important;
 }
 
-/* Text Contrast in Focus Mode */
-.focus-mode h1, 
-.focus-mode h2, 
-.focus-mode h3 {
+/* Text Contrast in Signal Mode */
+.signal-mode h1, 
+.signal-mode h2, 
+.signal-mode h3 {
   color: #FFFFFF !important;
 }
 
-.focus-mode .heading-accent {
+.signal-mode .heading-accent {
   color: #00F2FF !important;
   background: none !important;
   -webkit-background-clip: unset !important;
@@ -70,27 +73,25 @@ body {
   -webkit-text-fill-color: #00F2FF !important;
 }
 
-.focus-mode .secondary-text {
-  color: rgba(255, 255, 255, 0.9) !important;
+.signal-mode p,
+.signal-mode li {
+  color: rgba(255, 255, 255, 0.92) !important;
 }
 
-.focus-mode .bullet-points li {
-  color: rgba(255, 255, 255, 0.88) !important;
+.signal-mode .muted-text,
+.signal-mode .secondary-text {
+  color: rgba(255, 255, 255, 0.7) !important;
 }
 
-.focus-mode .muted-text {
-  color: rgba(255, 255, 255, 0.65) !important;
-}
-
-.focus-mode .card-tag,
-.focus-mode .card-category,
-.focus-mode .card-metric {
+.signal-mode .card-tag,
+.signal-mode .card-category,
+.signal-mode .card-metric {
   color: rgba(255, 255, 255, 0.85) !important;
   border-color: rgba(255, 255, 255, 0.15) !important;
   background: rgba(255, 255, 255, 0.04) !important;
 }
 
-.focus-mode .card-description {
+.signal-mode .card-description {
   color: rgba(255, 255, 255, 0.82) !important;
 }
 
@@ -112,60 +113,95 @@ body {
 }
 
 /* Accent rules */
-.focus-mode .section-label {
+.signal-mode .section-label {
   color: #00F2FF !important;
 }
 
-.focus-mode .nav-link-active {
+.signal-mode .nav-link-active {
   color: #00F2FF !important;
   border-bottom: 2px solid #00F2FF !important;
 }
 
-.focus-mode .cluster-label {
+.signal-mode .cluster-label {
   color: rgba(255, 255, 255, 0.65) !important;
 }
 
-.focus-mode .hub-label {
+.signal-mode .hub-label {
   color: #00F2FF !important;
 }
 
-.focus-mode .hub-border {
+.signal-mode .hub-border {
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
 }
 
+/* Neutralize Card Hovers in Signal Mode */
+.signal-mode .glass:hover {
+  transform: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+  border-color: rgba(0, 242, 255, 0.3) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+.signal-mode .glass::before,
+.signal-mode .glass:hover::before {
+  display: none !important;
+}
+
 /* Hide Glows/Spotlights */
-.focus-mode .mouse-spotlight,
-.focus-mode .bg-blob,
-.focus-mode [class*="radial-gradient"],
-.focus-mode [style*="radial-gradient"] {
+.signal-mode .mouse-spotlight,
+.signal-mode .bg-blob,
+.signal-mode [class*="radial-gradient"],
+.signal-mode [style*="radial-gradient"],
+.signal-mode .glow-text,
+.signal-mode .glow-border,
+.signal-mode .soft-glow {
   display: none !important;
   background-image: none !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
 }
 
 /* Specific Section BG Glow Removal */
-.focus-mode section div[style*="radial-gradient"] {
+.signal-mode section div[style*="radial-gradient"] {
   display: none !important;
 }
 
-/* Disable Animations in Focus Mode */
-.focus-mode .animate-marquee,
-.focus-mode .animate-hub-breathe,
-.focus-mode .skill-pill,
-.focus-mode .orbit-ball,
-.focus-mode .avatar-scan-line,
-.focus-mode .avatar-scan-reveal,
-.focus-mode [class*="animate-"] {
+/* Disable Animations in Signal Mode */
+.signal-mode .animate-marquee,
+.signal-mode .animate-hub-breathe,
+.signal-mode .skill-pill,
+.signal-mode .orbit-ball,
+.signal-mode .avatar-scan-line,
+.signal-mode .avatar-scan-reveal,
+.signal-mode [class*="animate-"] {
   animation-play-state: paused !important;
   animation-duration: 0s !important;
 }
 
-.focus-mode .avatar-scan-line {
+.signal-mode .avatar-scan-line {
   opacity: 0 !important;
 }
 
-.focus-mode .floating-cluster {
-  animation-duration: 0s !important;
+.signal-mode .floating-cluster {
+  animation-play-state: paused !important;
   transform: none !important;
+}
+
+/* Toggle Feedback Effects */
+@keyframes signal-ripple {
+  0% { box-shadow: 0 0 0 0 rgba(0, 242, 255, 0.4); }
+  100% { box-shadow: 0 0 0 20px rgba(0, 242, 255, 0); }
+}
+
+.animate-ripple {
+  animation: signal-ripple 0.6s ease-out;
+}
+
+.nav-highlight {
+  border-bottom: 2px solid rgba(0, 242, 255, 0.5) !important;
+  background: rgba(0, 242, 255, 0.05) !important;
 }
 
 @keyframes scanline {

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, MotionConfig } from "framer-motion";
-import { Github, Linkedin, Mail, Download, Moon, Sun, Monitor, Code, Code2, BrainCircuit, Activity, Zap, Sparkles, Eye } from "lucide-react";
+import { Github, Linkedin, Mail, Download, Moon, Sun, Monitor, Code, Code2, BrainCircuit, Activity, Zap, Sparkles, Eye, Signal, Radio } from "lucide-react";
 import { OrbitalSkills } from "@/components/OrbitalSkills";
 import { ProjectCard } from "@/components/ProjectCard";
 import { MagneticButton } from "@/components/MagneticButton";
@@ -100,20 +100,22 @@ const freelanceProjects: FreelanceProject[] = [
 ];
 
 export default function Home() {
-  const [focusMode, setFocusMode] = useState(false);
+  const [signalMode, setSignalMode] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [activeSection, setActiveSection] = useState("Home");
   const [activeFilter, setActiveFilter] = useState("All");
   const [scanned, setScanned] = useState(false);
   const [hoveredFeatured, setHoveredFeatured] = useState<string | null>(null);
   const [hoveredFreelance, setHoveredFreelance] = useState<string | null>(null);
+  const [isRippling, setIsRippling] = useState(false);
+  const [isNavHighlighted, setIsNavHighlighted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    const saved = localStorage.getItem('focusMode');
+    const saved = localStorage.getItem('signalMode');
     if (saved === 'true') {
-      setFocusMode(true);
-      document.documentElement.classList.add('focus-mode');
+      setSignalMode(true);
+      document.documentElement.classList.add('signal-mode');
     }
     const timer = setTimeout(() => {
       setScanned(true);
@@ -121,14 +123,21 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, []);
 
-  const toggleFocusMode = () => {
-    const nextMode = !focusMode;
-    setFocusMode(nextMode);
-    localStorage.setItem('focusMode', String(nextMode));
+  const toggleSignalMode = () => {
+    const nextMode = !signalMode;
+    setSignalMode(nextMode);
+    localStorage.setItem('signalMode', String(nextMode));
+    
+    // Feedback animations
+    setIsRippling(true);
+    setIsNavHighlighted(true);
+    setTimeout(() => setIsRippling(false), 600);
+    setTimeout(() => setIsNavHighlighted(false), 500);
+
     if (nextMode) {
-      document.documentElement.classList.add('focus-mode');
+      document.documentElement.classList.add('signal-mode');
     } else {
-      document.documentElement.classList.remove('focus-mode');
+      document.documentElement.classList.remove('signal-mode');
     }
   };
 
@@ -137,11 +146,11 @@ export default function Home() {
   );
 
   return (
-    <MotionConfig reducedMotion={focusMode ? "always" : "never"}>
+    <MotionConfig reducedMotion={signalMode ? "always" : "never"}>
     <div className="min-h-screen">
       <CustomCursor />
       {/* Navbar */}
-      <nav className="fixed top-0 w-full z-50 glass" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+      <nav className={`fixed top-0 w-full z-50 glass transition-all duration-300 ${isNavHighlighted ? 'nav-highlight' : ''}`} style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="font-heading font-bold tracking-[0.2em] text-sm flex gap-2 uppercase">
             <span className="text-[#00F2FF]">Gaurang</span><span className="text-[#E0E6ED]">Patil</span>
@@ -166,15 +175,15 @@ export default function Home() {
           </div>
 
           <button
-            onClick={toggleFocusMode}
-            title="Toggle Focus Mode"
-            className="flex items-center gap-2 px-3 py-1.5 rounded-full glass hover:border-accent transition-colors cursor-hover"
+            onClick={toggleSignalMode}
+            title="Toggle Signal Mode — less noise, more signal"
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-full glass hover:border-accent transition-all duration-300 cursor-hover relative ${isRippling ? 'animate-ripple' : ''}`}
           >
             {mounted ? (
               <>
-                {focusMode ? <Eye size={16} className="text-secondary" /> : <Sparkles size={16} className="text-secondary" />}
-                <span className={`font-mono text-[10px] font-bold tracking-widest uppercase ${focusMode ? 'text-[#00F2FF]' : 'text-foreground/50'}`}>
-                  {focusMode ? 'FOCUSED' : 'FOCUS'}
+                <Signal size={16} className={`${signalMode ? 'text-[#00F2FF]' : 'text-foreground/50'}`} />
+                <span className={`font-mono text-[10px] font-bold tracking-widest uppercase ${signalMode ? 'text-[#00F2FF]' : 'text-foreground/50'}`}>
+                  {signalMode ? 'SIGNAL: ON' : 'SIGNAL'}
                 </span>
               </>
             ) : <span className="w-16 h-6 block" />}

@@ -14,20 +14,23 @@ export function CustomCursor() {
   useEffect(() => {
     const mouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
-      ringX.set(e.clientX - 12); // 12 is half of 24
+      ringX.set(e.clientX - 12);
       ringY.set(e.clientY - 12);
 
       const target = e.target as HTMLElement;
+      const isSignalMode = document.documentElement.classList.contains('signal-mode');
       const isOverInteractive = !!target?.closest("button") || 
                                 !!target?.closest("a") || 
                                 !!target?.closest(".project-card") ||
                                 !!target?.closest(".cursor-hover");
-      setIsHovered(isOverInteractive);
+      setIsHovered(!isSignalMode && isOverInteractive);
     };
 
     window.addEventListener("mousemove", mouseMove);
     return () => window.removeEventListener("mousemove", mouseMove);
   }, [ringX, ringY]);
+
+  const isSignalMode = typeof document !== 'undefined' && document.documentElement.classList.contains('signal-mode');
 
   return (
     <>
@@ -55,6 +58,7 @@ export function CustomCursor() {
             y: ringY.get(),
             scale: isHovered ? 1.3 : 1,
             borderColor: isHovered ? "rgba(0,242,255,0.6)" : "rgba(0,242,255,0.3)",
+            opacity: isSignalMode ? 0.2 : 1
           }}
           style={{
             x: ringX,
