@@ -98,7 +98,7 @@ export function ToolsInventory() {
                   style={{ boxShadow: `inset 0 0 12px rgba(${tool.color}, 0.4)` }}
                 />
                 
-                <Icon size={18} className="text-[#94A3B8] group-hover:text-white transition-colors duration-300 relative z-10" />
+                <Icon size={18} className="group-hover:text-white transition-colors duration-300 relative z-10" style={{ color: "rgba(255,255,255,0.6)" }} />
               </motion.div>
             );
           })}

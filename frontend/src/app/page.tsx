@@ -142,16 +142,9 @@ export default function Home() {
                   element?.scrollIntoView({ behavior: 'smooth' });
                   setActiveSection(item);
                 }}
-                className={`text-xs uppercase tracking-widest font-mono transition-colors relative cursor-hover ${activeSection === item ? "text-accent" : "text-foreground/70 hover:text-foreground"
-                  }`}
+                className={`text-xs uppercase tracking-widest font-mono transition-colors relative cursor-hover nav-link ${activeSection === item ? "nav-link-active" : ""}`}
               >
                 {item}
-                {activeSection === item && (
-                  <motion.div
-                    layoutId="navbar-underline"
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-accent rounded-full shadow-[0_0_8px_var(--accent-glow)]"
-                  />
-                )}
               </button>
             ))}
           </div>
@@ -254,7 +247,8 @@ export default function Home() {
                    initial={{ opacity: 0 }} 
                    animate={{ opacity: scanned ? 1 : 0 }} 
                    transition={{ duration: 0.5, delay: 0.5 }}
-                   className="flex items-center gap-2 text-[#94A3B8] text-xs font-mono"
+                   className="flex items-center gap-2 text-xs font-mono"
+                   style={{ color: "rgba(255,255,255,0.6)" }}
                 >
                   <span className="relative flex h-2 w-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
@@ -275,8 +269,8 @@ export default function Home() {
                 <div className="font-mono text-[#E0E6ED]">
                   ML Engineer · AI Engineer · Computer Vision · Data Science
                 </div>
-                <p className="text-lg leading-relaxed max-w-2xl font-sans">
-                  <span className="font-medium text-cyan-300">Final year CE student at K.J. Somaiya, Mumbai — Honors in Data Science.</span> <span className="text-slate-400">I build end-to-end AI systems that work in the real world. From computer vision pipelines to data infrastructure, I focus on turning research into things that actually ship. Looking for DS / MLE roles.</span>
+                <p className="text-lg leading-relaxed max-w-2xl font-sans" style={{ color: "rgba(255,255,255,0.85)" }}>
+                  <span className="font-medium text-cyan-300">Final year CE student at K.J. Somaiya, Mumbai — Honors in Data Science.</span> <span>I build end-to-end AI systems that work in the real world. From computer vision pipelines to data infrastructure, I focus on turning research into things that actually ship. Looking for DS / MLE roles.</span>
                 </p>
               </div>
 
@@ -291,8 +285,8 @@ export default function Home() {
                   ].map((contact, i) => {
                     const Icon = contact.icon;
                     return (
-                      <a key={i} href={contact.href} className="glass flex flex-col items-center justify-center gap-3 p-4 rounded-2xl hover:border-accent/40 transition-colors group cursor-hover">
-                        <Icon size={24} className="text-[#94A3B8] group-hover:text-[#00F2FF] transition-colors" />
+                      <a key={i} href={contact.href} className="glass contact-card flex flex-col items-center justify-center gap-3 p-4 rounded-2xl group cursor-hover transition-all duration-200">
+                        <Icon size={24} className="transition-colors" style={{ color: "rgba(255,255,255,0.6)" }} />
                         <span className="text-[10px] font-mono font-bold tracking-widest text-[#E0E6ED] uppercase">{contact.label}</span>
                       </a>
                     );
@@ -403,7 +397,7 @@ export default function Home() {
               <h2 className="text-[48px] font-heading font-[700] text-transparent bg-clip-text bg-gradient-to-b from-white to-[#A5C0EE] pb-1">
                 Freelance Work
               </h2>
-              <p className="font-sans text-[#94A3B8] text-lg">
+              <p className="font-sans text-lg" style={{ color: "rgba(255,255,255,0.85)" }}>
                 Real client projects — designed, built, and shipped.
               </p>
             </div>
@@ -474,13 +468,13 @@ export default function Home() {
                   
                   {/* Hidden Elements (Fade in on hover) */}
                   <div className="space-y-4 absolute inset-x-5 bottom-5">
-                    <p className="text-sm text-[#94A3B8] font-sans opacity-0 translate-y-5 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[350ms] ease-in-out">
+                    <p className="text-sm font-sans opacity-0 translate-y-5 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[350ms] ease-in-out" style={{ color: "rgba(255,255,255,0.82)" }}>
                       {project.description}
                     </p>
 
                     <div className="flex flex-wrap gap-2 opacity-0 translate-y-5 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[350ms] ease-in-out delay-100">
                       {project.tech.map((t: string) => (
-                        <span key={t} className="font-mono text-[11px] px-[10px] py-[4px] rounded-[4px] bg-[rgba(0,242,255,0.06)] border border-[rgba(0,242,255,0.2)] text-foreground/90">
+                        <span key={t} className="font-mono text-[11px] px-[10px] py-[4px] rounded-[4px] bg-[rgba(0,242,255,0.06)] border border-[rgba(255,255,255,0.15)]" style={{ color: "rgba(255,255,255,0.8)" }}>
                           {t}
                         </span>
                       ))}
@@ -489,7 +483,7 @@ export default function Home() {
                     <div className="pt-2 opacity-0 translate-y-5 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[350ms] ease-in-out delay-[150ms]">
                       <a
                         href={project.link}
-                        className="inline-flex items-center gap-2 font-mono text-xs font-bold border border-foreground/20 text-[#94A3B8] hover:border-[#00F2FF] hover:text-[#00F2FF] hover:shadow-[0_0_10px_rgba(0,242,255,0.2)] px-4 py-2 rounded transition-all bg-background/50"
+                        className="inline-flex items-center gap-2 font-mono text-xs font-bold btn-outlined px-4 py-2 rounded cursor-hover"
                       >
                         Visit Site <span className="text-sm">→</span>
                       </a>
@@ -526,7 +520,7 @@ export default function Home() {
                       <span className="font-mono text-sm font-bold bg-[rgba(0,242,255,0.1)] border border-accent text-accent px-2 py-1 rounded inline-block">{exp.title}</span>
                       <span className="font-mono text-xs text-accent">{exp.date}</span>
                   </div>
-                  <ul className="space-y-2 mt-4 text-sm font-sans text-[#94A3B8] list-disc list-inside marker:text-accent">
+                  <ul className="space-y-2 mt-4 text-sm font-sans list-disc list-inside marker:text-accent" style={{ color: "rgba(255,255,255,0.82)", lineHeight: "1.7" }}>
                     {exp.points.map((pt, i) => (
                       <li key={i}>{pt}</li>
                     ))}

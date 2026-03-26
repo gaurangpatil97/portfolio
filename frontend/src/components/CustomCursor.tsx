@@ -8,21 +8,20 @@ export function CustomCursor() {
   const [isHovered, setIsHovered] = useState(false);
 
   // Position for the trailing ring with spring physics
-  const ringX = useSpring(0, { damping: 20, stiffness: 100 });
-  const ringY = useSpring(0, { damping: 20, stiffness: 100 });
+  const ringX = useSpring(0, { damping: 25, stiffness: 200 });
+  const ringY = useSpring(0, { damping: 25, stiffness: 200 });
 
   useEffect(() => {
     const mouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
-      ringX.set(e.clientX - 16); // 16 is half the ring width
-      ringY.set(e.clientY - 16);
+      ringX.set(e.clientX - 12); // 12 is half of 24
+      ringY.set(e.clientY - 12);
 
-      // Check for elements with cursor-hover class under the mouse
       const target = e.target as HTMLElement;
-      const isOverInteractive = !!target?.closest(".cursor-hover") || 
-                                !!target?.closest("button") || 
+      const isOverInteractive = !!target?.closest("button") || 
                                 !!target?.closest("a") || 
-                                !!target?.closest(".glass");
+                                !!target?.closest(".project-card") ||
+                                !!target?.closest(".cursor-hover");
       setIsHovered(isOverInteractive);
     };
 
@@ -32,27 +31,41 @@ export function CustomCursor() {
 
   return (
     <>
-      {/* Main Dot */}
-      <motion.div
-        className="fixed top-0 left-0 w-[10px] h-[10px] bg-[#00F2FF] rounded-full pointer-events-none z-[99999]"
-        animate={{
-          x: mousePosition.x - 5,
-          y: mousePosition.y - 5,
-          scale: isHovered ? 2.5 : 1,
-          backgroundColor: isHovered ? "rgba(0,0,0,0)" : "#00F2FF",
-          border: isHovered ? "2px solid #00F2FF" : "0px solid #00F2FF",
-        }}
-        transition={{ type: "tween", ease: "backOut", duration: 0.1 }}
-      />
+      <div className="custom-cursor-container">
+        {/* Main Dot */}
+        <motion.div
+           className="fixed top-0 left-0 w-[8px] h-[8px] bg-[#00F2FF] rounded-full pointer-events-none z-[99999]"
+           animate={{
+             x: mousePosition.x - 4,
+             y: mousePosition.y - 4,
+             scale: isHovered ? 1.5 : 1,
+           }}
+           transition={{ 
+             x: { type: "tween", duration: 0 },
+             y: { type: "tween", duration: 0 },
+             scale: { duration: 0.15, ease: "easeOut" }
+           }}
+        />
 
-      {/* Trailing Ring */}
-      <motion.div
-        className="fixed top-0 left-0 w-[32px] h-[32px] border border-[rgba(0,242,255,0.4)] rounded-full pointer-events-none z-[99998]"
-        style={{
-          x: ringX,
-          y: ringY,
-        }}
-      />
+        {/* Outer Ring */}
+        <motion.div
+          className="fixed top-0 left-0 w-[24px] h-[24px] border border-[rgba(0,242,255,0.3)] rounded-full pointer-events-none z-[99999]"
+          animate={{
+            x: ringX.get(),
+            y: ringY.get(),
+            scale: isHovered ? 1.3 : 1,
+            borderColor: isHovered ? "rgba(0,242,255,0.6)" : "rgba(0,242,255,0.3)",
+          }}
+          style={{
+            x: ringX,
+            y: ringY,
+          }}
+          transition={{
+            scale: { duration: 0.15, ease: "easeOut" },
+            borderColor: { duration: 0.15, ease: "easeOut" }
+          }}
+        />
+      </div>
 
       <style jsx global>{`
         * {
