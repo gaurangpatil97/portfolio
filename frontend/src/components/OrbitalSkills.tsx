@@ -85,8 +85,8 @@ function Cluster({
                 ))}
             </div>
             <span
-                className="font-mono uppercase tracking-[0.12em] text-center"
-                style={{ fontSize: "10px", color: "#00F2FF", marginTop: "8px" }}
+                className="font-mono uppercase tracking-[0.12em] text-center cluster-label"
+                style={{ fontSize: "10px", marginTop: "8px" }}
             >
                 {cluster.name}
             </span>
@@ -111,14 +111,13 @@ export function OrbitalSkills() {
                 {/* Center Node */}
                 <div className="flex-shrink-0 relative" style={{ width: 200, height: 200 }}>
                     <div
-                        className="w-full h-full rounded-full flex flex-col items-center justify-center text-center animate-hub-breathe"
+                        className="w-full h-full rounded-full flex flex-col items-center justify-center text-center animate-hub-breathe hub-border"
                         style={{
                             background: "transparent",
-                            border: "2px solid rgba(0,242,255,0.5)",
                         }}
                     >
-                        <span className="font-mono" style={{ color: "#00F2FF", fontSize: "20px", fontWeight: 700 }}>CORE</span>
-                        <span className="font-mono" style={{ color: "#00F2FF", fontSize: "20px", fontWeight: 700 }}>STACK</span>
+                        <span className="font-mono hub-label" style={{ fontSize: "20px", fontWeight: 700 }}>CORE</span>
+                        <span className="font-mono hub-label" style={{ fontSize: "20px", fontWeight: 700 }}>STACK</span>
                     </div>
                     <div className="orbit-ball" />
                 </div>
@@ -134,14 +133,13 @@ export function OrbitalSkills() {
             <div className="flex flex-col gap-10 md:hidden w-full max-w-sm mx-auto mt-4">
                 <div className="flex items-center justify-center py-6">
                     <div
-                        className="w-[130px] h-[130px] rounded-full flex flex-col items-center justify-center text-center animate-hub-breathe"
+                        className="w-[130px] h-[130px] rounded-full flex flex-col items-center justify-center text-center animate-hub-breathe hub-border"
                         style={{
                             background: "transparent",
-                            border: "2px solid rgba(0,242,255,0.5)",
                         }}
                     >
-                        <span className="font-mono font-bold text-base" style={{ color: "#00F2FF" }}>CORE</span>
-                        <span className="font-mono font-bold text-base" style={{ color: "#00F2FF" }}>STACK</span>
+                        <span className="font-mono font-bold text-base hub-label">CORE</span>
+                        <span className="font-mono font-bold text-base hub-label">STACK</span>
                     </div>
                 </div>
 
@@ -168,8 +166,8 @@ export function OrbitalSkills() {
                             ))}
                         </div>
                         <span
-                            className="font-mono uppercase tracking-[0.12em] text-center"
-                            style={{ fontSize: "10px", color: "#00F2FF" }}
+                            className="font-mono uppercase tracking-[0.12em] text-center cluster-label"
+                            style={{ fontSize: "10px" }}
                         >
                             {cluster.name}
                         </span>

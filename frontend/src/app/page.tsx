@@ -1,9 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useTheme } from "next-themes";
-import { motion, AnimatePresence } from "framer-motion";
-import { Github, Linkedin, Mail, Download, Moon, Sun, Monitor, Code, Code2, BrainCircuit, Activity, Zap } from "lucide-react";
+import { motion, AnimatePresence, MotionConfig } from "framer-motion";
+import { Github, Linkedin, Mail, Download, Moon, Sun, Monitor, Code, Code2, BrainCircuit, Activity, Zap, Sparkles, Eye } from "lucide-react";
 import { OrbitalSkills } from "@/components/OrbitalSkills";
 import { ProjectCard } from "@/components/ProjectCard";
 import { MagneticButton } from "@/components/MagneticButton";
@@ -101,7 +100,7 @@ const freelanceProjects: FreelanceProject[] = [
 ];
 
 export default function Home() {
-  const { theme, setTheme } = useTheme();
+  const [focusMode, setFocusMode] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [activeSection, setActiveSection] = useState("Home");
   const [activeFilter, setActiveFilter] = useState("All");
@@ -111,17 +110,34 @@ export default function Home() {
 
   useEffect(() => {
     setMounted(true);
+    const saved = localStorage.getItem('focusMode');
+    if (saved === 'true') {
+      setFocusMode(true);
+      document.documentElement.classList.add('focus-mode');
+    }
     const timer = setTimeout(() => {
       setScanned(true);
     }, 4000);
     return () => clearTimeout(timer);
   }, []);
 
+  const toggleFocusMode = () => {
+    const nextMode = !focusMode;
+    setFocusMode(nextMode);
+    localStorage.setItem('focusMode', String(nextMode));
+    if (nextMode) {
+      document.documentElement.classList.add('focus-mode');
+    } else {
+      document.documentElement.classList.remove('focus-mode');
+    }
+  };
+
   const filteredProjects = projects.filter(
     (p) => activeFilter === "All" || p.category === activeFilter
   );
 
   return (
+    <MotionConfig reducedMotion={focusMode ? "always" : "never"}>
     <div className="min-h-screen">
       <CustomCursor />
       {/* Navbar */}
@@ -150,10 +166,18 @@ export default function Home() {
           </div>
 
           <button
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="p-2 rounded-full glass hover:border-accent transition-colors cursor-hover"
+            onClick={toggleFocusMode}
+            title="Toggle Focus Mode"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-full glass hover:border-accent transition-colors cursor-hover"
           >
-            {mounted ? (theme === "dark" ? <Sun size={18} /> : <Moon size={18} />) : <span className="w-[18px] h-[18px] block" />}
+            {mounted ? (
+              <>
+                {focusMode ? <Eye size={16} className="text-secondary" /> : <Sparkles size={16} className="text-secondary" />}
+                <span className={`font-mono text-[10px] font-bold tracking-widest uppercase ${focusMode ? 'text-[#00F2FF]' : 'text-foreground/50'}`}>
+                  {focusMode ? 'FOCUSED' : 'FOCUS'}
+                </span>
+              </>
+            ) : <span className="w-16 h-6 block" />}
           </button>
         </div>
       </nav>
@@ -264,13 +288,13 @@ export default function Home() {
               <div className="space-y-5">
                 <h1 className="text-4xl lg:text-5xl font-heading font-bold leading-tight soft-glow">
                   Building AI Systems That Work in the <br />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00F2FF] to-[#A5C0EE] soft-glow">Real World</span>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00F2FF] to-[#A5C0EE] heading-accent soft-glow">Real World</span>
                 </h1>
                 <div className="font-mono text-[#E0E6ED]">
                   ML Engineer · AI Engineer · Computer Vision · Data Science
                 </div>
-                <p className="text-lg leading-relaxed max-w-2xl font-sans" style={{ color: "rgba(255,255,255,0.85)" }}>
-                  <span className="font-medium text-cyan-300">Final year CE student at K.J. Somaiya, Mumbai — Honors in Data Science.</span> <span>I build end-to-end AI systems that work in the real world. From computer vision pipelines to data infrastructure, I focus on turning research into things that actually ship. Looking for DS / MLE roles.</span>
+                <p className="text-lg leading-relaxed max-w-2xl font-sans secondary-text">
+                  <span className="font-medium text-cyan-300">Final year CE student at K.J. Somaiya, Mumbai — Honors in Data Science.</span> <span className="muted-text">I build end-to-end AI systems that work in the real world. From computer vision pipelines to data infrastructure, I focus on turning research into things that actually ship. Looking for DS / MLE roles.</span>
                 </p>
               </div>
 
@@ -334,7 +358,7 @@ export default function Home() {
           >
             <div className="flex flex-col sm:flex-row justify-between items-center mb-8">
               <div className="mb-6 sm:mb-0 space-y-4">
-                <div className="inline-block font-mono text-[0.7rem] uppercase tracking-[0.2em] text-[rgba(0,242,255,0.7)] border-l border-accent pl-2 mb-2">
+                <div className="inline-block font-mono text-[0.7rem] uppercase tracking-[0.2em] border-l border-accent section-label pl-2 mb-2">
                   [03] DEPLOYED_SYSTEMS
                 </div>
                 <h2 className="text-[48px] font-heading font-[700] text-transparent bg-clip-text bg-gradient-to-b from-white to-[#A5C0EE] pb-2">Featured Work</h2>
@@ -390,14 +414,14 @@ export default function Home() {
           className="space-y-12 py-[100px]"
         >
           <div className="space-y-4">
-            <div className="inline-block font-mono text-[0.7rem] uppercase tracking-[0.2em] text-[rgba(0,242,255,0.7)] border-l border-accent pl-2 mb-2">
+            <div className="inline-block font-mono text-[0.7rem] uppercase tracking-[0.2em] border-l border-accent section-label pl-2 mb-2">
               [03.5] CLIENT_WORK
             </div>
             <div>
               <h2 className="text-[48px] font-heading font-[700] text-transparent bg-clip-text bg-gradient-to-b from-white to-[#A5C0EE] pb-1">
                 Freelance Work
               </h2>
-              <p className="font-sans text-lg" style={{ color: "rgba(255,255,255,0.85)" }}>
+              <p className="font-sans text-lg secondary-text">
                 Real client projects — designed, built, and shipped.
               </p>
             </div>
@@ -504,7 +528,7 @@ export default function Home() {
           transition={{ duration: 0.8 }}
           className="py-[100px]"
         >
-            <div className="inline-block font-mono text-[0.7rem] uppercase tracking-[0.2em] text-[rgba(0,242,255,0.7)] border-l border-accent pl-2 mb-6">
+            <div className="inline-block font-mono text-[0.7rem] uppercase tracking-[0.2em] border-l border-accent section-label pl-2 mb-6">
               [04] OPERATIONAL_LOGS
             </div>
             <h2 className="text-[48px] font-heading font-[700] text-transparent bg-clip-text bg-gradient-to-b from-white to-[#A5C0EE] pb-2 mb-12">Experience</h2>
@@ -520,7 +544,7 @@ export default function Home() {
                       <span className="font-mono text-sm font-bold bg-[rgba(0,242,255,0.1)] border border-accent text-accent px-2 py-1 rounded inline-block">{exp.title}</span>
                       <span className="font-mono text-xs text-accent">{exp.date}</span>
                   </div>
-                  <ul className="space-y-2 mt-4 text-sm font-sans list-disc list-inside marker:text-accent" style={{ color: "rgba(255,255,255,0.82)", lineHeight: "1.7" }}>
+                  <ul className="space-y-2 mt-4 text-sm font-sans list-disc list-inside marker:text-accent bullet-points">
                     {exp.points.map((pt, i) => (
                       <li key={i}>{pt}</li>
                     ))}
@@ -545,6 +569,7 @@ export default function Home() {
           ))}
         </div>
       </div>
-    </div >
+    </div>
+  </MotionConfig>
   );
 }

@@ -34,6 +34,138 @@ body {
   font-family: var(--font-sans);
   position: relative;
   overflow-x: hidden;
+  transition: background-color 0.4s ease, color 0.3s ease;
+}
+
+/* Focus Mode Overrides */
+.focus-mode body {
+  background-color: #060810 !important;
+  background-image: none !important;
+}
+
+.focus-mode .glass {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+}
+
+.focus-mode .glass::before {
+  display: none !important;
+}
+
+/* Text Contrast in Focus Mode */
+.focus-mode h1, 
+.focus-mode h2, 
+.focus-mode h3 {
+  color: #FFFFFF !important;
+}
+
+.focus-mode .heading-accent {
+  color: #00F2FF !important;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: #00F2FF !important;
+}
+
+.focus-mode .secondary-text {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.focus-mode .bullet-points li {
+  color: rgba(255, 255, 255, 0.88) !important;
+}
+
+.focus-mode .muted-text {
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+
+.focus-mode .card-tag,
+.focus-mode .card-category,
+.focus-mode .card-metric {
+  color: rgba(255, 255, 255, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+.focus-mode .card-description {
+  color: rgba(255, 255, 255, 0.82) !important;
+}
+
+/* Cluster & Hub Defaults */
+.cluster-label {
+  color: #00F2FF;
+}
+
+.hub-label {
+  color: #00F2FF;
+}
+
+.hub-border {
+  border: 2px solid rgba(0,242,255,0.5);
+}
+
+.section-label {
+  color: rgba(0, 242, 255, 0.7);
+}
+
+/* Accent rules */
+.focus-mode .section-label {
+  color: #00F2FF !important;
+}
+
+.focus-mode .nav-link-active {
+  color: #00F2FF !important;
+  border-bottom: 2px solid #00F2FF !important;
+}
+
+.focus-mode .cluster-label {
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+
+.focus-mode .hub-label {
+  color: #00F2FF !important;
+}
+
+.focus-mode .hub-border {
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Hide Glows/Spotlights */
+.focus-mode .mouse-spotlight,
+.focus-mode .bg-blob,
+.focus-mode [class*="radial-gradient"],
+.focus-mode [style*="radial-gradient"] {
+  display: none !important;
+  background-image: none !important;
+}
+
+/* Specific Section BG Glow Removal */
+.focus-mode section div[style*="radial-gradient"] {
+  display: none !important;
+}
+
+/* Disable Animations in Focus Mode */
+.focus-mode .animate-marquee,
+.focus-mode .animate-hub-breathe,
+.focus-mode .skill-pill,
+.focus-mode .orbit-ball,
+.focus-mode .avatar-scan-line,
+.focus-mode .avatar-scan-reveal,
+.focus-mode [class*="animate-"] {
+  animation-play-state: paused !important;
+  animation-duration: 0s !important;
+}
+
+.focus-mode .avatar-scan-line {
+  opacity: 0 !important;
+}
+
+.focus-mode .floating-cluster {
+  animation-duration: 0s !important;
+  transform: none !important;
 }
 
 @keyframes scanline {
@@ -73,7 +205,7 @@ body {
   border-radius: 24px;
   border: none;
   box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.05);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.4s ease, color 0.3s ease;
 }
 
 .glass::before {
@@ -104,15 +236,23 @@ body {
 /* Project Cards - Specific Styles */
 .project-card.glass {
   box-shadow: none !important;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease, background-color 0.4s ease, color 0.3s ease;
 }
 
 .project-card.glass:hover {
   box-shadow: 0 0 20px rgba(0,242,255,0.08) !important;
 }
 
+.focus-mode .project-card.glass:hover {
+  box-shadow: none !important;
+}
+
 .project-card.glass[data-highlighted="true"] {
   box-shadow: 0 0 30px rgba(0,242,255,0.12) !important;
+}
+
+.focus-mode .project-card.glass[data-highlighted="true"] {
+  box-shadow: none !important;
 }
 
 /* Outlined Buttons Styling */
@@ -186,8 +326,16 @@ body {
   text-shadow: 0 0 10px var(--accent-glow);
 }
 
+.focus-mode .glow-text {
+  text-shadow: none !important;
+}
+
 .glow-border {
   box-shadow: 0 0 10px var(--accent-glow), inset 0 0 5px var(--accent-glow);
+}
+
+.focus-mode .glow-border {
+  box-shadow: none !important;
 }
 
 /* Scrollbar */
@@ -228,6 +376,10 @@ body {
 
 .soft-glow {
   text-shadow: 0 0 8px rgba(0, 242, 255, 0.3);
+}
+
+.focus-mode .soft-glow {
+  text-shadow: none !important;
 }
 
 @keyframes scan-line-anim {

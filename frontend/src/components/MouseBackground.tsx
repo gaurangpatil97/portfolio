@@ -24,11 +24,11 @@ export function MouseBackground() {
   return (
     <>
       {/* Global Mouse-Follow Spotlight */}
-      <motion.div className="pointer-events-none fixed inset-0 z-[1]" style={{ background }} />
+      <motion.div className="pointer-events-none fixed inset-0 z-[1] mouse-spotlight" style={{ background }} />
       {/* Blurred Blob 1 (Cyan) */}
-      <div className="fixed top-[-20%] left-[-10%] w-[60vw] h-[60vw] max-w-[1000px] max-h-[1000px] rounded-full bg-[#00F2FF] opacity-[0.26] blur-[160px] pointer-events-none z-0" />
+      <div className="fixed top-[-20%] left-[-10%] w-[60vw] h-[60vw] max-w-[1000px] max-h-[1000px] rounded-full bg-[#00F2FF] opacity-[0.26] blur-[160px] pointer-events-none z-0 bg-blob" />
       {/* Blurred Blob 2 (Deep Navy) */}
-      <div className="fixed bottom-[-20%] right-[-10%] w-[60vw] h-[60vw] max-w-[1000px] max-h-[1000px] rounded-full bg-[#000080] opacity-[0.26] blur-[160px] pointer-events-none z-0" />
+      <div className="fixed bottom-[-20%] right-[-10%] w-[60vw] h-[60vw] max-w-[1000px] max-h-[1000px] rounded-full bg-[#000080] opacity-[0.26] blur-[160px] pointer-events-none z-0 bg-blob" />
     </>
   );
 }

@@ -53,24 +53,24 @@ export function ProjectCard({ title, category, metric, description, tags, github
 
             <div className="relative z-10 flex flex-col h-full">
                 <div className="flex justify-between items-start mb-4">
-                    <span className="font-mono text-[10px] uppercase tracking-[0.12em] px-2 py-1 rounded-full border border-accent/40 text-accent bg-accent/10">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.12em] px-2 py-1 rounded-full border border-accent/40 text-accent bg-accent/10 card-category">
                         {category}
                     </span>
-                    <span className="font-mono text-xs font-bold text-[#00F2FF] bg-[rgba(0,242,255,0.15)] px-2 py-1 rounded-md border border-[#00F2FF]/40">
+                    <span className="font-mono text-xs font-bold text-[#00F2FF] bg-[rgba(0,242,255,0.15)] px-2 py-1 rounded-md border border-[#00F2FF]/40 card-metric">
                         {metric}
                     </span>
                 </div>
                 <h3 className="text-xl font-heading font-bold mb-2 group-hover:text-accent transition-colors">
                     {title}
                 </h3>
-                <p className="text-sm font-sans flex-grow mb-6" style={{ color: "rgba(255,255,255,0.82)" }}>
+                <p className="text-sm font-sans flex-grow mb-6 card-description">
                     {description}
                 </p>
 
                 {/* Tags */}
                 <div className="flex flex-wrap gap-2 mb-6">
                     {tags.map((tag) => (
-                        <span key={tag} className="font-mono text-[11px] px-[10px] py-[3px] rounded-[4px] bg-[rgba(0,242,255,0.06)] border border-[rgba(255,255,255,0.15)]" style={{ color: "rgba(255,255,255,0.8)" }}>
+                        <span key={tag} className="font-mono text-[11px] px-[10px] py-[3px] rounded-[4px] bg-[rgba(0,242,255,0.06)] border border-[rgba(255,255,255,0.15)] card-tag">
                             {tag}
                         </span>
                     ))}
