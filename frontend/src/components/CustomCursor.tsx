@@ -6,6 +6,7 @@ import { motion, useSpring } from "framer-motion";
 export function CustomCursor() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   // Position for the trailing ring with spring physics
   const ringX = useSpring(0, { damping: 25, stiffness: 200 });
@@ -18,17 +19,20 @@ export function CustomCursor() {
       ringY.set(e.clientY - 12);
 
       const target = e.target as HTMLElement;
-      const isSignalMode = document.documentElement.classList.contains('signal-mode');
+      const isCurrentlySignalMode = document.documentElement.classList.contains('signal-mode');
       const isOverInteractive = !!target?.closest("button") || 
                                 !!target?.closest("a") || 
                                 !!target?.closest(".project-card") ||
                                 !!target?.closest(".cursor-hover");
-      setIsHovered(!isSignalMode && isOverInteractive);
+      setIsHovered(!isCurrentlySignalMode && isOverInteractive);
     };
 
+    setMounted(true);
     window.addEventListener("mousemove", mouseMove);
     return () => window.removeEventListener("mousemove", mouseMove);
   }, [ringX, ringY]);
+
+  if (!mounted) return null;
 
   const isSignalMode = typeof document !== 'undefined' && document.documentElement.classList.contains('signal-mode');
 
@@ -70,20 +74,6 @@ export function CustomCursor() {
           }}
         />
       </div>
-
-      <style jsx global>{`
-        * {
-          cursor: none !important;
-        }
-        @media (max-width: 1024px) {
-          * {
-            cursor: auto !important;
-          }
-          .custom-cursor-container {
-            display: none !important;
-          }
-        }
-      `}</style>
     </>
   );
 }
