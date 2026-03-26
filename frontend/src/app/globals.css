@@ -172,12 +172,15 @@ body {
 .signal-mode .animate-marquee,
 .signal-mode .animate-hub-breathe,
 .signal-mode .skill-pill,
-.signal-mode .orbit-ball,
 .signal-mode .avatar-scan-line,
 .signal-mode .avatar-scan-reveal,
 .signal-mode [class*="animate-"] {
   animation-play-state: paused !important;
   animation-duration: 0s !important;
+}
+
+.signal-mode .orbit-ball {
+  display: none !important;
 }
 
 .signal-mode .avatar-scan-line {
