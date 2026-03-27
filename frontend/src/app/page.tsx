@@ -450,31 +450,7 @@ export default function Home() {
                    transition: "all 0.3s ease"
                 }}
               >
-                {/* STATUS: ONLINE Badge (Top-Right) */}
-                <div className="absolute top-5 right-5 z-20">
-                  <span style={{
-                    fontFamily: 'JetBrains Mono, monospace',
-                    fontSize: '10px',
-                    letterSpacing: '0.12em',
-                    color: '#00ff64',
-                    background: 'rgba(0,255,100,0.08)',
-                    border: '1px solid rgba(0,255,100,0.3)',
-                    padding: '4px 10px',
-                    borderRadius: '4px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '6px'
-                  }}>
-                    <span style={{
-                      width: '6px', height: '6px',
-                      background: '#00ff64',
-                      borderRadius: '50%',
-                      boxShadow: '0 0 6px #00ff64',
-                      animation: 'pulse 2s infinite'
-                    }}></span>
-                    STATUS: ONLINE
-                  </span>
-                </div>
+
                 {/* Background Image */}
                 <div 
                   className="absolute inset-0 bg-cover bg-top transition-transform duration-400 ease-in-out group-hover:scale-105"
