@@ -240,11 +240,7 @@ export default function Home() {
                 <div className="absolute bottom-4 left-4 w-[20px] h-[20px] border-b-2 border-l-2 border-[#00F2FF]/60 z-20 pointer-events-none animate-pulse" />
                 <div className="absolute bottom-4 right-4 w-[20px] h-[20px] border-b-2 border-r-2 border-[#00F2FF]/60 z-20 pointer-events-none animate-pulse" />
 
-                {/* Status Tag: Systems Online */}
-                <div className="absolute top-[10%] -left-1 flex items-center gap-2 bg-[#000000]/60 backdrop-blur-md border border-green-500/30 px-3 py-1.5 rounded-r-md z-20 shadow-[0_0_10px_rgba(34,197,94,0.2)]">
-                  <Zap size={14} className="text-green-400 animate-pulse fill-green-400" />
-                  <span className="text-[9px] font-mono font-bold tracking-widest text-green-400 uppercase">Systems Online</span>
-                </div>
+
               </div>
 
               <div className="p-6 mt-auto space-y-3 z-20 relative">
