@@ -73,28 +73,28 @@ const freelanceProjects: FreelanceProject[] = [
     name: "Grabtek BioSciences",
     description: "Corporate website for a Mumbai-based biosciences company",
     tech: ["WordPress", "Elementor", "PHP"],
-    link: "#",
+    link: "http://grabtekbiosciences.com/",
     image: "url('/grabtekbiosciences.png')"
   },
   {
     name: "Biotronics",
     description: "Business website for an electronics and automation firm",
     tech: ["Next.js", "Tailwind CSS", "Framer Motion"],
-    link: "#",
+    link: "http://www.biotronicsindia.com/",
     image: "url('/Biotronics.png')"
   },
   {
     name: "Hands On Skill Lab",
     description: "Training institute website with course listings and enrollment",
     tech: ["Next.js", "Supabase", "Tailwind CSS"],
-    link: "#",
+    link: "https://handsonmedicalskills.com/",
     image: "url('/handsonskilllab.png')"
   },
   {
     name: "Rajashri World",
     description: "Business website for a client in the retail sector",
     tech: ["Next.js", "Framer Motion", "Tailwind CSS"],
-    link: "#",
+    link: "https://www.rajashriworld.com/",
     image: "url('/Rajashriworld.png')"
   }
 ];
@@ -440,28 +440,36 @@ export default function Home() {
             {freelanceProjects.map((project: FreelanceProject, i: number) => (
               <div 
                 key={i} 
-                className="relative h-[320px] rounded-2xl overflow-hidden glass group cursor-pointer border border-transparent transition-all duration-[350ms] ease-in-out hover:border-accent/40 hover:shadow-[0_0_20px_rgba(0,242,255,0.15)] cursor-hover"
+                className="relative h-[320px] rounded-2xl overflow-hidden glass group cursor-pointer border border-transparent hover:border-accent/40 hover:shadow-[0_0_20px_rgba(0,242,255,0.15)] cursor-hover"
                 onMouseEnter={() => setHoveredFreelance(project.name)}
                 onMouseLeave={() => setHoveredFreelance(null)}
                 style={{
                    opacity: hoveredFreelance !== null && hoveredFreelance !== project.name ? 0.5 : 1,
                    filter: hoveredFreelance !== null && hoveredFreelance !== project.name ? "blur(1.5px)" : "blur(0px)",
                    scale: hoveredFreelance === project.name ? 1.02 : 1,
-                   transition: "all 0.3s ease"
+                   transitionDuration: "0.4s",
+                   transitionTimingFunction: "ease",
+                   transitionDelay: hoveredFreelance === project.name ? "0.05s" : "0s"
                 }}
               >
 
                 {/* Background Image */}
                 <div 
-                  className="absolute inset-0 bg-cover bg-top transition-transform duration-400 ease-in-out group-hover:scale-105"
-                  style={{ backgroundImage: project.image }}
+                  className="absolute inset-0 bg-cover bg-top group-hover:scale-105"
+                  style={{ backgroundImage: project.image, transition: "transform 0.4s ease" }}
                 />
                 
                 {/* Initial Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/60 transition-all duration-[350ms] group-hover:from-black/30 group-hover:to-black/85" />
+                <div 
+                  className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/60 group-hover:from-black/30 group-hover:to-black/85" 
+                  style={{ transition: "all 0.4s ease" }}
+                />
 
                 {/* Sliding Dark Panel (Bottom 55%) */}
-                <div className="absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-t from-[rgba(11,14,20,0.98)] to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-[350ms] ease-in-out z-10" />
+                <div 
+                  className="absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-t from-[rgba(11,14,20,0.98)] to-transparent translate-y-full group-hover:translate-y-0 z-10" 
+                  style={{ transition: "transform 0.4s ease" }}
+                />
 
                 {/* Permanent Bottom Gradient for Readability */}
                 <div className="absolute bottom-0 left-0 right-0 h-[120px] bg-gradient-to-t from-black/80 to-transparent pointer-events-none z-[5]" />
@@ -469,7 +477,10 @@ export default function Home() {
                 {/* Content Container */}
                 <div className="absolute inset-0 p-5 flex flex-col justify-end z-[20]">
                   {/* Name & Badge - Moves up on hover */}
-                  <div className="flex justify-between items-center transition-transform duration-[350ms] ease-in-out group-hover:-translate-y-[150px]">
+                  <div 
+                    className="flex justify-between items-center group-hover:-translate-y-[150px]"
+                    style={{ transition: "transform 0.4s ease" }}
+                  >
                       <h3 className="font-heading font-bold text-[18px] text-white group-hover:text-accent transition-colors">
                         {project.name}
                       </h3>
@@ -477,11 +488,17 @@ export default function Home() {
                   
                   {/* Hidden Elements (Fade in on hover) */}
                   <div className="space-y-4 absolute inset-x-5 bottom-5">
-                    <p className="text-sm font-sans opacity-0 translate-y-5 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[350ms] ease-in-out" style={{ color: "rgba(255,255,255,0.82)" }}>
+                    <p 
+                      className="text-sm font-sans opacity-0 translate-y-[12px] group-hover:opacity-100 group-hover:translate-y-0" 
+                      style={{ color: "rgba(255,255,255,0.82)", transition: "opacity 0.3s ease 0.15s, transform 0.3s ease 0.15s" }}
+                    >
                       {project.description}
                     </p>
 
-                    <div className="flex flex-wrap gap-2 opacity-0 translate-y-5 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[350ms] ease-in-out delay-100">
+                    <div 
+                      className="flex flex-wrap gap-2 opacity-0 translate-y-[8px] group-hover:opacity-100 group-hover:translate-y-0"
+                      style={{ transition: "opacity 0.3s ease 0.22s, transform 0.3s ease 0.22s" }}
+                    >
                       {project.tech.map((t: string) => (
                         <span key={t} className="font-mono text-[11px] px-[10px] py-[4px] rounded-[4px] bg-[rgba(0,242,255,0.06)] border border-[rgba(255,255,255,0.15)]" style={{ color: "rgba(255,255,255,0.8)" }}>
                           {t}
@@ -489,9 +506,14 @@ export default function Home() {
                       ))}
                     </div>
 
-                    <div className="pt-2 opacity-0 translate-y-5 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[350ms] ease-in-out delay-[150ms]">
-                      <a
+                    <div 
+                      className="pt-2 opacity-0 translate-y-[6px] group-hover:opacity-100 group-hover:translate-y-0"
+                      style={{ transition: "opacity 0.3s ease 0.3s, transform 0.3s ease 0.3s" }}
+                    >
+                        <a
                         href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 font-mono text-xs font-bold btn-outlined px-4 py-2 rounded cursor-hover"
                       >
                         Visit Site <span className="text-sm">→</span>

@@ -39,8 +39,8 @@ export function ProjectCard({ title, category, metric, description, tags, github
                 filter: isDimmed ? "blur(1.5px)" : "blur(0px)",
                 opacity: isDimmed ? 0.5 : 1,
             }}
-            transition={{ duration: 0.3 }}
-            className="relative w-full h-full rounded-2xl glass project-card p-[28px] overflow-hidden flex flex-col min-w-[320px] cursor-pointer group cursor-hover"
+            transition={{ duration: 0.6, delay: isHighlighted ? 0.4 : 0 }}
+            className="relative w-full h-full rounded-2xl glass project-card p-[28px] overflow-hidden flex flex-col min-w-[320px] cursor-pointer group cursor-hover transition-all duration-[600ms] group-hover:delay-[400ms]"
             data-highlighted={isHighlighted}
         >
             {/* Glow Effect */}
