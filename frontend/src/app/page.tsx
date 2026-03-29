@@ -24,11 +24,12 @@ const projects = [
     github: "https://github.com/gaurangpatil97/divyadrishti2",
   },
   {
-    title: "AI Traffic Enforcement System",
+    title: "Sentinel - Smart AI traffic management system",
     category: "CV",
     metric: "In Progress",
     description: "End-to-end violation detection — wrong-way driving, speeding, helmet violations, illegal parking. Speed estimation via perspective transform, license plate OCR with EasyOCR, live dashboard.",
     tags: ["Python", "YOLOv8", "FastAPI", "Supabase", "Next.js"],
+    github: "https://github.com/gaurangpatil97/Sentinel",
   },
   {
     title: "GenAI Project",
