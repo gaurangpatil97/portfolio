@@ -22,6 +22,7 @@ const projects = [
     description: "Real-time assistive AI system for the visually impaired. YOLOv8 object detection with spatial audio feedback, IMU-based step tracking, and voice commands. Mobile app via Expo, backend inference under 300ms.",
     tags: ["Python", "YOLOv8", "TFLite", "React Native", "FastAPI"],
     github: "https://github.com/gaurangpatil97/divyadrishti2",
+    demo: "https://drive.google.com/drive/folders/10guY9kA3PY8oUWHxymmFogaXssuQiRtX?usp=drive_link",
   },
   {
     title: "Sentinel - Smart AI traffic management system",
