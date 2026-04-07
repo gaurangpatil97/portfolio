@@ -12,7 +12,7 @@ import Image from "next/image";
 
 const navItems = ["About Me", "Skills", "Best Works", "Contacts"];
 
-const filters = ["All", "CV", "AI/ML", "GenAI"];
+const filters = ["All", "CV", "AI/ML", "GenAI", "Data"];
 
 const projects = [
   {
@@ -38,6 +38,15 @@ const projects = [
     metric: "Coming Soon",
     description: "Building an LLM-powered RAG pipeline over technical document corpora. Vector search, semantic chunking, grounded answers with citations. Details dropping soon.",
     tags: ["Python", "LangChain", "ChromaDB", "Gemini API"],
+  },
+  {
+    title: "Indian Stock Market COVID-19 Crash Analysis",
+    category: "Data",
+    metric: "May 2024",
+    description: "Built an end-to-end pipeline integrating 3+ years of NSE data across 10+ sectors with COVID-19 case data from BigQuery. Engineered 8+ derived features and performed time-series analysis to identify market regime shifts and sector-wise recovery trends. Presented findings via an interactive Tableau dashboard with 4+ visual components.",
+    tags: ["Python", "SQL", "Tableau"],
+    github: "#",
+    demo: "#",
   },
 ];
 
